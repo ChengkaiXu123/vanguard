@@ -1,0 +1,1587 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="vg-build" content="4accdf7-11260954">
+<script>/* newest build or nothing: a cached old page moves itself to the current one */(function(){var b="4accdf7-11260954";try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.build||j.build===b)return;var u=new URL(location.href);if(u.searchParams.get("v")===j.build)return;u.searchParams.set("v",j.build);location.replace(u.toString())}).catch(function(){})}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanguard · 从使用 AI，到带领 AI</title>
+<meta name="description" content="Vanguard：一个应用，管好你所有的 agent。派活、拍板、看全局。">
+<link rel="icon" type="image/png" href="assets/favicon.png?v=49631d6d77">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=029d75b514">
+<!--
+  Vanguard site. Same page flow as the SI Future HUD site (hero, statement,
+  numbers, features, bots, connect, one more thing, agents, install, docs,
+  final), in Vanguard's own look: white stage, #F5F5F7 alternates, three
+  greys, amber gradient only for emphasis, blue primary button.
+  Bilingual: every string has a .zh and an .en span; html[data-lang] shows one.
+  SI_URL below is the only place the SI Future HUD address lives in script;
+  the hrefs carry it too (search "si-future-hud/").
+-->
+<style>
+:root{
+  --bg:#FFFFFF; --alt:#F5F5F7; --ink:#1D1D1F; --ink2:#6E6E73; --ink3:#86868B; --line:#D2D2D7;
+  --blue:#0A7CFF; --blue-h:#0066D6;
+  --a1:#E67700; --a2:#D9480F; --grad:linear-gradient(90deg,var(--a1),var(--a2));
+  --d1:#FFD60A; --d2:#FF9F0A; --dgrad:linear-gradient(90deg,var(--d1),var(--d2));
+  --radius:28px; --shadow:0 1px 2px rgba(0,0,0,.04),0 18px 50px -12px rgba(0,0,0,.14);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+html[data-lang="zh"] .en,html[data-lang="en"] .zh{display:none!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+b{font-weight:600}
+code{font-family:var(--mono);font-size:.88em;background:rgba(0,0,0,.05);padding:.1em .35em;border-radius:6px}
+pre{margin:14px 0 0;padding:14px 16px;white-space:pre-wrap;word-break:break-all;background:#1D1D1F;color:#F5F5F7;border-radius:14px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+.wrap{width:min(1120px,100% - 44px);margin:0 auto}
+section{padding:120px 0;position:relative}
+.alt{background:var(--alt)}
+.dark{background:#000;color:#F5F5F7}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dark .grad{background:var(--dgrad);-webkit-background-clip:text;background-clip:text}
+.kicker{font-size:15px;font-weight:600;letter-spacing:.02em;margin-bottom:14px;display:inline-block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dark .kicker{background:var(--dgrad);-webkit-background-clip:text;background-clip:text}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.015em;line-height:1.1}
+h2{font-size:clamp(34px,5.2vw,64px)}
+html[data-lang="en"] h2{letter-spacing:-.025em}
+h3{font-size:21px;line-height:1.3;letter-spacing:-.01em}
+.sub{font-size:clamp(17px,1.6vw,21px);color:var(--ink2);max-width:720px;margin:22px 0 0;line-height:1.55}
+.dark .sub{color:#A1A1A6}
+.center{text-align:center}
+.center .sub{margin-left:auto;margin-right:auto}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------------- header ---------------- */
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;z-index:60;transform-origin:0 50%;transform:scaleX(var(--read,0));background:var(--grad)}
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;height:52px;transition:background .3s,transform .35s,border-color .3s;border-bottom:1px solid transparent}
+.bar.solid{background:rgba(255,255,255,.78);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom-color:rgba(0,0,0,.08)}
+.bar.hide{transform:translateY(-100%)}
+.bar .wrap{height:100%;display:flex;align-items:center;gap:26px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.brand:hover{text-decoration:none}
+.brand img{width:26px;height:26px;border-radius:7px}
+.bar nav{display:flex;gap:22px;margin-left:12px}
+.bar nav a{color:var(--ink);font-size:13px;opacity:.82}
+.bar nav a:hover{opacity:1;text-decoration:none}
+.bar .right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.bar .sibling{font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px;padding:4px 10px 4px 5px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.6)}
+.bar .sibling img{width:18px;height:auto}
+.bar .sibling:hover{color:var(--ink);text-decoration:none;border-color:#B0B0B5}
+.lang{display:flex;background:rgba(0,0,0,.05);border-radius:99px;padding:2px}
+.lang button{all:unset;cursor:pointer;font-size:12px;padding:3px 10px;border-radius:99px;color:var(--ink2)}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.bar .get{font-size:12px;font-weight:500;color:#fff;background:var(--blue);padding:4px 13px;border-radius:99px}
+.bar .get:hover{background:var(--blue-h);text-decoration:none}
+
+/* ---------------- hero ---------------- */
+.hero{padding:110px 0 40px;text-align:center;overflow:hidden}
+.hero-copy{position:relative;z-index:1;will-change:transform,opacity}
+.hero .glow{position:absolute;left:50%;top:40px;width:820px;height:520px;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,159,10,.22),rgba(255,159,10,.08) 55%,rgba(255,159,10,0) 100%);filter:blur(10px)}
+.icon-hero{width:112px;height:112px;margin:0 auto 26px;border-radius:26px;filter:drop-shadow(0 18px 30px rgba(217,72,15,.28));animation:jelly 3.6s ease-in-out infinite}
+@keyframes jelly{0%,100%{transform:scale(1,1)}8%{transform:scale(1.06,.94)}16%{transform:scale(.96,1.05)}24%{transform:scale(1.02,.98)}32%{transform:scale(1,1)}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:22px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(230,119,0,.14)}
+.eyebrow small{font-size:13px;font-weight:500;color:var(--ink3);letter-spacing:.04em}
+.hero h1{font-size:clamp(50px,8.6vw,108px);letter-spacing:-.02em;line-height:1.04}
+html[data-lang="en"] .hero h1{font-size:clamp(44px,7.6vw,96px);letter-spacing:-.035em}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .line>span{display:inline-block;transform:translateY(105%);animation:rise 1.05s cubic-bezier(.2,.75,.2,1) forwards;animation-delay:var(--d)}
+@keyframes rise{to{transform:none}}
+.lead{font-size:clamp(18px,1.9vw,23px);color:var(--ink2);max-width:760px;margin:28px auto 0;line-height:1.5}
+.lead b{color:var(--ink)}
+.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:17px;font-weight:500;padding:12px 24px;border-radius:99px;transition:background .2s,transform .2s,box-shadow .2s}
+.btn:hover{text-decoration:none}
+.btn.primary{background:var(--blue);color:#fff;box-shadow:0 8px 22px -8px rgba(10,124,255,.6)}
+.btn.primary:hover{background:var(--blue-h);transform:translateY(-1px)}
+.btn.ghost{color:var(--blue);border:1px solid rgba(10,124,255,.35)}
+.btn.ghost:hover{background:rgba(10,124,255,.06)}
+.dark .btn.ghost{color:#5EB0FF;border-color:rgba(94,176,255,.4)}
+.meta{font-size:13px;color:var(--ink3);margin:18px 0 0}
+.support{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;margin:12px 0 0;font-size:14px}
+.support .hudlink{color:var(--ink2)}
+.support .hudlink b{color:var(--a2);font-weight:600}
+.film{position:relative;margin:64px auto 0;width:min(1180px,100% - 32px);will-change:transform;transform-origin:50% 0}
+.film-frame{position:relative;border-radius:22px;overflow:hidden;background:#F5F5F7;box-shadow:0 2px 4px rgba(0,0,0,.04),0 40px 90px -28px rgba(0,0,0,.35);border:1px solid rgba(0,0,0,.06);opacity:0;transform:translateY(40px);animation:filmIn 1.2s cubic-bezier(.2,.75,.2,1) .55s forwards}
+@keyframes filmIn{to{opacity:1;transform:none}}
+.film video{width:100%;aspect-ratio:16/10;object-fit:cover;cursor:pointer;background:#F5F5F7}
+.film-ui{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;opacity:0;transition:opacity .25s}
+.film:hover .film-ui,.film.paused .film-ui{opacity:1}
+.film-ui button{all:unset;cursor:pointer;font-size:12px;font-weight:500;color:#fff;background:rgba(29,29,31,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:6px 12px;border-radius:99px}
+.film-ui button:hover{background:rgba(29,29,31,.8)}
+.film .p-on{display:none}.film.paused .p-on{display:inline}.film.paused .p-off{display:none}
+.film.muted .s-off,.film:not(.muted) .s-on{display:none}
+.film.muted .film-ui{opacity:1}
+.film-ui .sound{background:#fff;color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.film-ui .sound:hover{background:#fff}
+.film:not(.muted) .film-ui .sound{background:rgba(29,29,31,.62);color:#fff;box-shadow:none}
+.film-frame{background:#0a0e14}
+.film video{background:#0a0e14}
+.film-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(0,0,0,.06)}
+.film-bar i{display:block;height:100%;width:0;background:var(--grad)}
+.film-cap{font-size:13px;color:var(--ink3);margin-top:14px}
+
+/* ---------------- cinematic scene (hero poster, rendered in layers) ---------------- */
+/* opening: the scene pins while the intro rises over it, then both scroll on together */
+.opening{position:relative}
+.scene{position:sticky;top:0;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#05070b;color:#F3EFF7}
+/* the plate keeps the poster's 2.39:1 box so every layer lines up; it covers the scene */
+.scene-mask{position:absolute;inset:0}
+.scene-stage{position:absolute;left:50%;top:50%;width:max(100vw,calc(max(100vh,560px) * 2.39));aspect-ratio:2.39/1;
+  transform:translate(-56%,-50%) translate3d(var(--px,0px),var(--py,0px),0) scale(var(--s,1.03));transform-origin:50% 50%;
+  filter:brightness(var(--b,1));will-change:transform,filter;overflow:hidden;background:#05070b}
+.scene-stage>*{position:absolute;inset:0;width:100%;height:100%}
+.sc-base img{width:100%;height:100%;object-fit:cover;display:block}
+.sc-holo,.sc-scan,.sc-glitch{-webkit-mask:url(media/hero/holo-mask.png?v=ef3c10dbb9) center/100% 100% no-repeat;mask:url(media/hero/holo-mask.png?v=ef3c10dbb9) center/100% 100% no-repeat;mix-blend-mode:screen;pointer-events:none}
+.sc-holo{background:url(media/hero/base.webp?v=65a1ee61c9) center/100% 100%;opacity:.05;animation:scBreathe 5.5s ease-in-out infinite}
+@keyframes scBreathe{0%,100%{opacity:.04}50%{opacity:.30}}
+.sc-scan{background:
+  linear-gradient(to bottom,rgba(255,170,235,0) 0%,rgba(255,170,235,0) 44%,rgba(255,190,240,.20) 50%,rgba(255,170,235,0) 56%,rgba(255,170,235,0) 100%) 0 0/100% 320% no-repeat,
+  repeating-linear-gradient(to bottom,rgba(255,150,230,0) 0 2px,rgba(255,150,230,.09) 2px 3px);
+  animation:scSweep 7.5s linear infinite,scLines 2.4s linear infinite}
+@keyframes scSweep{0%{background-position:0 100%,0 0}100%{background-position:0 0%,0 0}}
+@keyframes scLines{to{background-position:0 0,0 36px}}
+.sc-glitch{background:url(media/hero/base.webp?v=65a1ee61c9) center/100% 100%;opacity:0}
+.sc-glitch.on{opacity:.9}
+.sc-hem{pointer-events:none}
+.sc-handwrap{transform:translate3d(var(--hx,0px),var(--hy,0px),0);pointer-events:none}
+.sc-hand{position:absolute;left:52.81%;top:38.94%;width:12.42%;height:auto;animation:scFloat 6.4s ease-in-out infinite,scGlow 5.5s ease-in-out infinite}
+@keyframes scFloat{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,-7%,0) rotate(-2deg)}}
+@keyframes scGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.18)}}
+.sc-fx{position:absolute;left:-3%;top:-3%;width:106%;height:106%;transform:translate3d(var(--fx,0px),var(--fy,0px),0);pointer-events:none}
+/* lighthouse on the Trip.com tower: a beam that swings across the night, hidden behind the portal's concrete */
+.sc-beacon{pointer-events:none;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2560 1071' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 0H1680V245H1735V1071H0Z M2065 252L2362 132V1071H2065Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2560 1071' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 0H1680V245H1735V1071H0Z M2065 252L2362 132V1071H2065Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+.bc-pivot{position:absolute;left:83.79%;top:25.4%;width:0;height:0}
+.sc-beacon img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 50%;mix-blend-mode:screen;will-change:transform,opacity}
+.sc-beacon .bc-halo{opacity:.4}
+.sc-flare{pointer-events:none}
+.sc-flare i{position:absolute;left:0;top:0;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:screen;will-change:opacity}
+.fl-lamp{width:.9vw;height:.9vw;min-width:7px;min-height:7px;background:radial-gradient(circle,#fff 0,#E6FBFF 30%,rgba(120,230,255,.6) 55%,rgba(120,230,255,0) 72%)}
+.fl-glow{width:16vw;height:16vw;background:radial-gradient(circle,rgba(235,252,255,.9) 0,rgba(150,232,255,.45) 12%,rgba(110,210,255,.14) 34%,rgba(110,210,255,0) 68%);opacity:0}
+.fl-streak{width:62vw;height:.5vw;min-height:4px;border-radius:50%;background:radial-gradient(closest-side,rgba(225,250,255,.95),rgba(120,220,255,.35) 40%,rgba(120,220,255,0));opacity:0}
+/* the line lives in the dark rain between the hologram and the portal, lit like a hologram ad */
+.sc-tag{position:absolute;inset:auto;left:53.6%;top:11.5%;width:auto;height:auto;pointer-events:none;
+  transform:translate3d(var(--hx,0px),var(--hy,0px),0);opacity:var(--co,1)}
+.sc-tag .tg-en{display:block;margin:0;font-family:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  font-weight:300;font-size:clamp(22px,1.95vw,40px);line-height:1.12;letter-spacing:-.012em;color:#FFEFF9;
+  text-shadow:0 0 1px rgba(255,255,255,.55),0 0 14px rgba(255,92,196,.55),0 0 34px rgba(255,92,196,.28)}
+.sc-tag .tg-en span{display:block;opacity:0;animation:scBoot 1.6s steps(1,end) forwards}
+.sc-tag .tg-en span:nth-child(1){animation-delay:.8s}
+.sc-tag .tg-en span:nth-child(2){animation-delay:1.9s;font-weight:500;background:linear-gradient(90deg,#FFD9F2,#B9E3FF);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 12px rgba(255,92,196,.45))}
+.sc-tag .zh-line{display:block;margin-top:.9em;font-family:"PingFang SC",-apple-system,sans-serif;font-weight:300;font-size:clamp(12px,.95vw,17px);letter-spacing:.32em;color:rgba(255,226,246,.78);
+  text-shadow:0 0 12px rgba(255,92,196,.35);opacity:0;animation:scBoot 1.6s steps(1,end) 2.7s forwards}
+/* the line plays on a failing old CRT: scanlines and a faint hum always, and every few seconds the signal tears */
+.sc-tag .tg-in{position:relative;padding:40px;margin:-40px;will-change:transform,opacity;
+  -webkit-mask:repeating-linear-gradient(to bottom,#000 0 2px,rgba(0,0,0,.6) 2px 3px);mask:repeating-linear-gradient(to bottom,#000 0 2px,rgba(0,0,0,.6) 2px 3px);
+  animation:tgHum 9.7s steps(1,end) infinite}
+@keyframes tgHum{0%,100%{opacity:1}61%{opacity:.8}61.4%{opacity:1}}
+.sc-tag .tg-en span,.sc-tag .zh-line{position:relative}
+.sc-tag [data-text]::before,.sc-tag [data-text]::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;
+  opacity:0;pointer-events:none;text-shadow:none;-webkit-text-fill-color:currentColor;mix-blend-mode:screen}
+.sc-tag [data-text]::before{color:#FF2FD0}
+.sc-tag [data-text]::after{color:#2EE6FF}
+.sc-tag.glitch .tg-in{animation:tgJit .34s steps(1,end)}
+.sc-tag.glitch.v2 .tg-in{animation:tgRoll .42s steps(1,end)}
+.sc-tag.glitch [data-text]::before{opacity:.9;animation:tgSliceA .34s steps(1,end)}
+.sc-tag.glitch [data-text]::after{opacity:.9;animation:tgSliceB .34s steps(1,end)}
+.sc-tag.glitch.v2 [data-text]::before{animation:tgSliceB .42s steps(1,end) reverse}
+.sc-tag.glitch.v2 [data-text]::after{animation:tgSliceA .42s steps(1,end) reverse}
+@keyframes tgJit{0%{transform:translate3d(var(--gj,4px),0,0) skewX(-7deg);opacity:.5;filter:brightness(1.7)}
+  18%{transform:translate3d(calc(var(--gj,4px) * -1),1px,0);opacity:1;filter:none}
+  36%{transform:translate3d(2px,0,0) skewX(3deg);opacity:.28}
+  52%{transform:none;opacity:1}70%{transform:translate3d(-1px,0,0);opacity:.7}100%{transform:none;opacity:1}}
+@keyframes tgRoll{0%{transform:translate3d(0,-7px,0) scaleY(1.06);opacity:.4;filter:brightness(1.8)}
+  20%{transform:translate3d(var(--gj,4px),3px,0);opacity:1;filter:none}
+  40%{transform:translate3d(0,-2px,0) skewX(-4deg);opacity:.2}
+  58%{transform:translate3d(calc(var(--gj,4px) * -.6),0,0);opacity:.9}
+  76%{transform:none;opacity:.55}100%{transform:none;opacity:1}}
+@keyframes tgSliceA{0%{clip-path:inset(8% 0 64% 0);transform:translate3d(-7px,0,0)}20%{clip-path:inset(52% 0 22% 0);transform:translate3d(6px,0,0)}
+  40%{clip-path:inset(28% 0 50% 0);transform:translate3d(-3px,0,0)}60%{clip-path:inset(70% 0 6% 0);transform:translate3d(8px,0,0)}
+  80%{clip-path:inset(40% 0 40% 0);transform:translate3d(-2px,0,0)}100%{clip-path:inset(0 0 100% 0)}}
+@keyframes tgSliceB{0%{clip-path:inset(60% 0 12% 0);transform:translate3d(6px,0,0)}20%{clip-path:inset(14% 0 66% 0);transform:translate3d(-5px,0,0)}
+  40%{clip-path:inset(44% 0 30% 0);transform:translate3d(4px,0,0)}60%{clip-path:inset(4% 0 80% 0);transform:translate3d(-7px,0,0)}
+  80%{clip-path:inset(66% 0 14% 0);transform:translate3d(3px,0,0)}100%{clip-path:inset(0 0 100% 0)}}
+@keyframes scBoot{0%{opacity:0}6%{opacity:.7}10%{opacity:.15}16%{opacity:.85}20%{opacity:.35}28%{opacity:1}100%{opacity:1}}
+.scene::before{content:"";position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0));z-index:2;pointer-events:none}
+/* nav over the dark scene */
+.bar.on-dark .brand,.bar.on-dark nav a{color:#F5F5F7}
+.bar.on-dark .sibling{color:rgba(245,245,247,.82);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
+.bar.on-dark .sibling:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.bar.on-dark .lang{background:rgba(255,255,255,.12)}
+.bar.on-dark .lang button{color:rgba(245,245,247,.72)}
+.bar.on-dark .lang button[aria-pressed="true"]{background:rgba(255,255,255,.92);color:#1D1D1F}
+.bar.on-dark.solid{background:rgba(8,8,12,.5);border-bottom-color:rgba(255,255,255,.08)}
+/* the product intro rises into the fog: one and a half screens */
+/* the intro carries its own fog: clear at its top edge, white by the headline */
+.hero.merged{position:relative;z-index:3;padding-top:var(--fogPad,100px);
+  background:linear-gradient(to bottom,rgba(255,255,255,0) 0,rgba(255,255,255,.12) 60px,rgba(255,255,255,.32) 100px,rgba(255,255,255,.58) 160px,rgba(255,255,255,.84) 240px,#fff 320px)}
+.hero.merged .glow,.hero.merged .icon-hero{display:none}
+/* the seam: the scene softens under a drifting mist as the intro rises over it */
+.veil{position:absolute;left:0;right:0;top:0;height:calc(var(--fogPad,100px) + 300px);pointer-events:none;z-index:-1;overflow:hidden}
+.veil-blur{position:absolute;inset:0;-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  -webkit-mask:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 22%,#000 45%);mask:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 22%,#000 45%)}
+.veil i{position:absolute;left:0;top:0;width:200%;height:100%;background-repeat:repeat-x;background-size:50% 100%;will-change:transform;
+  -webkit-mask:linear-gradient(to bottom,transparent 0,#000 28%,#000 62%,transparent 100%);mask:linear-gradient(to bottom,transparent 0,#000 28%,#000 62%,transparent 100%)}
+.veil .m1{background-image:url(media/hero/mist-a.webp?v=ea8f6ae8b7);opacity:.8;animation:mistDrift 64s linear infinite,mistBreath 11s ease-in-out infinite alternate}
+.veil .m2{top:10%;height:90%;background-image:url(media/hero/mist-b.webp?v=6ee1f8089e);opacity:.65;animation:mistDrift 41s linear infinite reverse,mistBreath 7s ease-in-out -3s infinite alternate}
+.veil-gl{position:absolute;left:0;top:0;width:100%;height:100%;display:none}
+.veil.gl .veil-gl{display:block}
+.veil.gl i{display:none}
+@keyframes mistDrift{to{transform:translate3d(-50%,0,0)}}
+@keyframes mistBreath{from{opacity:.45}to{opacity:.85}}
+.hero.merged .eyebrow .eb-icon{width:28px;height:28px;border-radius:7px;margin-right:4px;box-shadow:0 2px 10px rgba(60,0,40,.28),0 0 0 .5px rgba(0,0,0,.08)}
+.hero.merged h1{font-size:clamp(46px,7vw,96px)}
+html[data-lang="en"] .hero.merged h1{font-size:clamp(42px,6.4vw,86px)}
+.hero.merged .eyebrow{color:#2C2C30}
+.hero.merged .eyebrow small{color:#55555B}
+.hero:not(.go) h1 .line>span{animation-play-state:paused}
+.hero:not(.go) .film-frame{animation-play-state:paused}
+/* tall screens: the portrait plate; the tag sits low, above the fog */
+@media (max-aspect-ratio:4/5){
+  .scene-stage{left:0;top:0;width:100%;height:100%;aspect-ratio:auto;transform:translate3d(var(--px,0px),var(--py,0px),0) scale(var(--s,1.03))}
+  .sc-holo,.sc-scan,.sc-glitch,.sc-hem,.sc-handwrap,.sc-beacon,.sc-flare{display:none}
+  .sc-base img{object-position:72% 50%}
+  .sc-tag{left:auto;right:20px;top:calc(env(safe-area-inset-top,0px) + 74px);bottom:auto;text-align:right;transform:none}
+  .sc-tag .tg-en{font-size:24px}
+  .sc-tag .zh-line{letter-spacing:.2em;margin-top:.7em}
+}
+@media (prefers-reduced-motion:reduce){
+  .sc-holo,.sc-scan,.sc-hand{animation:none}
+  .sc-tag .tg-en span,.sc-tag .zh-line,.sc-tag .tg-in{animation:none;opacity:1}
+  .veil i{animation:none}
+}
+
+/* ---------------- statement ---------------- */
+.statement{height:240vh;padding:0}
+.statement .pin{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+.statement p{margin:0 auto;width:min(980px,100% - 44px);font-size:clamp(28px,4vw,52px);font-weight:700;line-height:1.32;letter-spacing:-.01em}
+html[data-lang="en"] .statement p{letter-spacing:-.02em;line-height:1.24}
+.statement .w{color:#3A3A3C;transition:color .35s}
+.statement .w.lit{color:#F5F5F7}
+.statement .w.hot.lit{background:var(--dgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------------- numbers ---------------- */
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.num{padding:8px 0 0;border-top:1px solid var(--line)}
+.num b{display:block;font-size:clamp(52px,6.4vw,84px);font-weight:700;letter-spacing:-.03em;line-height:1.05;padding-top:18px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.num span{display:block;font-size:15px;color:var(--ink2);margin-top:8px;line-height:1.45}
+
+/* ---------------- features ---------------- */
+.group{margin-top:96px}
+.group:first-of-type{margin-top:70px}
+.group-head{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.group-head .no{font-size:15px;font-weight:600;color:var(--ink3);font-variant-numeric:tabular-nums}
+.group-head h3{font-size:clamp(26px,3vw,36px);letter-spacing:-.02em}
+.group-head p{margin:0;color:var(--ink2);font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;grid-column:span 2;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.card:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(0,0,0,.04),0 28px 60px -14px rgba(0,0,0,.2)}
+.card.half{grid-column:span 3}
+.card.big{grid-column:span 6;flex-direction:row;align-items:center}
+.card .body{padding:30px 30px 22px}
+.card.big .body{flex:0 0 34%;padding:44px 20px 44px 44px}
+.card.big .body h3{font-size:clamp(24px,2.5vw,32px);letter-spacing:-.02em;line-height:1.18}
+.card p{margin:12px 0 0;color:var(--ink2);font-size:16px;line-height:1.55}
+.card.big p{font-size:17px}
+.card p a{font-weight:500}
+.card .media{margin:auto 18px 18px;border-radius:16px;overflow:hidden;background:var(--alt);border:1px solid rgba(0,0,0,.05)}
+.card.big .media{flex:1;margin:22px}
+.card .media img,.card .media video{width:100%;aspect-ratio:16/10;object-fit:cover;cursor:zoom-in}
+.card .media video{cursor:default}
+.tag{display:inline-block;font-size:12px;font-weight:600;color:var(--a2);background:rgba(230,119,0,.1);padding:3px 9px;border-radius:99px;margin-bottom:12px}
+
+/* ---------------- bots ---------------- */
+.squad{display:flex;justify-content:center;gap:clamp(10px,2.6vw,34px);margin:56px auto 0;flex-wrap:wrap}
+.squad figure{margin:0;text-align:center;width:clamp(64px,9vw,100px)}
+.squad img{width:100%;aspect-ratio:1;border-radius:50%;box-shadow:0 10px 24px -10px rgba(0,0,0,.35);animation:idle 3.2s ease-in-out infinite;animation-delay:calc(var(--i) * .22s);cursor:pointer}
+.squad figure:hover img{animation:hop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes idle{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-4px) scale(1.02,.98)}}
+@keyframes hop{0%{transform:scale(1,1)}30%{transform:translateY(-14px) scale(.94,1.08)}60%{transform:translateY(0) scale(1.08,.92)}100%{transform:scale(1,1)}}
+.squad figcaption{font-size:14px;font-weight:600;margin-top:12px}
+.squad figcaption small{display:block;font-size:12px;font-weight:400;color:var(--ink3);margin-top:2px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:64px;text-align:left}
+.shot{margin:0}
+.shot .frame{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:var(--alt);border:1px solid rgba(0,0,0,.05)}
+.shot img,.shot video{width:100%;aspect-ratio:16/10;object-fit:cover;cursor:zoom-in}
+.shot video{cursor:default}
+.shot figcaption{font-size:15px;color:var(--ink2);margin-top:14px;line-height:1.5}
+.shot figcaption b{color:var(--ink);display:block;font-size:17px;margin-bottom:2px}
+.dark .shot .frame{border-color:rgba(255,255,255,.08);background:#111}
+.dark .shot figcaption{color:#A1A1A6}
+.dark .shot figcaption b{color:#F5F5F7}
+
+/* ---------------- connect (scroll scene) ---------------- */
+.connect{height:520vh;padding:0}
+.connect .pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.connect .head{text-align:center}
+.connect h2{font-size:clamp(30px,4.4vw,56px)}
+.hub{position:relative;width:min(900px,100% - 32px);margin:3vh auto 0;aspect-ratio:1000/520}
+.hub svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.hub .rail{fill:none;stroke:#D2D2D7;stroke-width:2;stroke-dasharray:5 8}
+.hub .lit{fill:none;stroke:url(#hubGrad);stroke-width:3.5;stroke-linecap:round}
+.hub .core{position:absolute;left:50%;top:44.2%;width:12%;transform:translate(-50%,-50%);text-align:center}
+.hub .core img{width:100%;border-radius:22%;box-shadow:0 16px 36px -12px rgba(217,72,15,.45);transition:transform .5s}
+.hub .core.pulse img{animation:jelly 1.6s ease-in-out infinite}
+.hub .core em{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:8px;white-space:nowrap;font-style:normal;font-weight:600;font-size:clamp(12px,1.4vw,16px)}
+.node{position:absolute;transform:translate(-50%,-50%);text-align:center;transition:opacity .4s,transform .5s cubic-bezier(.3,1.5,.5,1);opacity:.45}
+.node.on{opacity:1;transform:translate(-50%,-50%) scale(1.06)}
+.node .ic{width:clamp(44px,6.4vw,64px);height:clamp(44px,6.4vw,64px);margin:0 auto;border-radius:18px;background:#fff;box-shadow:0 8px 22px -8px rgba(0,0,0,.25);display:grid;place-items:center;overflow:hidden}
+.node .ic img{width:100%;height:100%;object-fit:cover}
+.node .ic svg{position:static;width:58%;height:58%}
+.node.on .ic{box-shadow:0 0 0 3px rgba(230,119,0,.35),0 10px 26px -8px rgba(217,72,15,.45)}
+.node em{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:8px;white-space:nowrap;font-style:normal;font-size:clamp(11px,1.3vw,15px);font-weight:600;line-height:1.3}
+.node em small{display:block;font-weight:400;color:var(--ink3);font-size:.86em}
+.caption{position:relative;height:120px;margin-top:2vh}
+.caption>div{position:absolute;left:0;right:0;text-align:center;font-size:clamp(19px,2.2vw,26px);font-weight:600;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s;padding:0 16px}
+.caption>div.on{opacity:1;transform:none}
+.caption small{display:block;font-size:clamp(14px,1.4vw,16px);font-weight:400;color:var(--ink2);margin-top:8px;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.5}
+.talk{padding:40px 0 120px}
+
+/* ---------------- one more thing ---------------- */
+.omt{text-align:center;padding:150px 0 130px}
+.omt .big{font-size:clamp(44px,7vw,92px);font-weight:700;letter-spacing:-.03em;line-height:1}
+.omt .big .dot{display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--dgrad);margin-left:.06em}
+.omt .wide{margin:64px auto 0;border-radius:24px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(255,159,10,.25);border:1px solid rgba(255,255,255,.08)}
+.omt .wide video{width:100%;aspect-ratio:16/10;object-fit:cover}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px;text-align:left}
+
+/* ---------------- agents ---------------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.tier{border-radius:var(--radius);background:var(--alt);padding:30px}
+.tier b{display:block;font-size:56px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.tier b small{font-size:20px;font-weight:600;margin-left:4px;color:var(--ink2);letter-spacing:0}
+.tier>span{display:block;color:var(--ink2);margin-top:10px;font-size:16px}
+.tier.hi b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logos{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:40px}
+.logo{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 16px 6px 6px;font-size:15px;font-weight:500}
+.logo img{width:32px;height:32px;border-radius:50%}
+.chip{font-size:14px;color:var(--ink2);border:1px dashed #C7C7CC;border-radius:99px;padding:8px 14px}
+.note{font-size:14px;color:var(--ink3);margin-top:22px;max-width:820px;line-height:1.6}
+
+/* ---------------- choose (VG vs SI) ---------------- */
+.choose{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:56px}
+.prod{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:38px 36px 34px;display:flex;flex-direction:column}
+.prod .top{display:flex;align-items:center;gap:16px}
+.prod .top img{width:60px;height:60px;object-fit:contain;border-radius:14px}
+.prod .top h3{font-size:26px}
+.prod .top small{display:block;font-size:15px;font-weight:400;color:var(--ink2);margin-top:3px;letter-spacing:0}
+.prod ul{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px}
+.prod li{position:relative;padding-left:28px;font-size:16px;color:var(--ink)}
+.prod li::before{content:"";position:absolute;left:2px;top:.42em;width:15px;height:15px;border-radius:50%;background:var(--grad)}
+.prod li::after{content:"";position:absolute;left:7px;top:.62em;width:4px;height:7px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.prod.si li::before{background:#34C759}
+.prod .spec{font-size:13px;color:var(--ink3);margin-top:22px}
+.prod .actions{justify-content:flex-start;margin-top:22px}
+.prod.si{border:1px solid transparent}
+.tablewrap{margin-top:40px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+th,td{padding:15px 22px;text-align:left;border-bottom:1px solid #EBEBEF}
+th{font-size:13px;font-weight:600;color:var(--ink2)}
+th:not(:first-child),td:not(:first-child){text-align:center;width:22%}
+tr:last-child td{border-bottom:0}
+td.ok{color:var(--a2);font-weight:700}
+td.no{color:#C7C7CC}
+
+/* ---------------- install ---------------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px;counter-reset:s}
+.step{background:var(--alt);border-radius:var(--radius);padding:32px 30px;counter-increment:s;min-width:0}
+.step::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;font-weight:700;font-size:16px;margin-bottom:18px}
+.step p{color:var(--ink2);font-size:16px;margin:10px 0 0}
+.panelbox{margin-top:22px;border-radius:var(--radius);padding:32px 34px;background:var(--alt)}
+.panelbox h3{margin-bottom:14px}
+.panelbox ul{margin:0;padding-left:20px;color:var(--ink2);display:grid;gap:9px}
+.panelbox li b{color:var(--ink)}
+.ticks{list-style:none;padding-left:0!important}
+.ticks li{position:relative;padding-left:28px}
+.ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--a2);font-weight:700}
+.panelbox.warn{background:#FFF8EC;border:1px solid #FFE2B8}
+
+/* ---------------- docs ---------------- */
+.faq{margin-top:56px;display:grid;gap:12px}
+.faq details{background:#fff;border-radius:20px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 26px -14px rgba(0,0,0,.14);overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:22px 60px 22px 28px;font-size:18px;font-weight:600;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:26px;top:50%;transform:translateY(-50%);font-size:26px;font-weight:300;color:var(--ink3);transition:transform .3s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq .ans{padding:0 28px 24px;color:var(--ink2);font-size:16px;line-height:1.65}
+.faq .ans p{margin:0 0 10px}
+.links{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.link{display:block;background:#fff;border-radius:20px;padding:24px 26px;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 26px -14px rgba(0,0,0,.14);transition:transform .3s}
+.link:hover{text-decoration:none;transform:translateY(-3px)}
+.link b{display:block;font-size:17px}
+.link b::after{content:" ↗";color:var(--blue);font-weight:500}
+.link>span{display:block;color:var(--ink2);font-size:14px;margin-top:6px;line-height:1.5}
+
+/* ---------------- final + footer ---------------- */
+.final{text-align:center;padding:150px 0 140px}
+.final img{width:96px;height:96px;margin:0 auto 34px;border-radius:22px;filter:drop-shadow(0 16px 28px rgba(217,72,15,.25))}
+.final h2{font-size:clamp(40px,6.4vw,80px)}
+.final .alt-path{margin-top:22px;font-size:15px;color:var(--ink2)}
+footer{background:var(--alt);padding:34px 0 46px;font-size:12px;color:var(--ink3);line-height:1.7}
+footer .wrap>div+div{margin-top:8px;padding-top:12px;border-top:1px solid var(--line)}
+footer a{color:var(--ink2)}
+
+/* overview with pins */
+.overview{margin-top:64px}
+.ov-frame{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:#fff}
+.ov-frame img{width:100%;display:block}
+.ov-pin{all:unset;position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--grad);color:#fff;font-size:14px;font-weight:700;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(217,72,15,.45);transition:transform .25s}
+.ov-pin::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(230,119,0,.55);animation:pinring 2.4s ease-out infinite}
+@keyframes pinring{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.ov-pin.hl,.ov-pin:hover{transform:translate(-50%,-50%) scale(1.25)}
+.ov-legend{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 26px}
+.ov-legend li{display:grid;grid-template-columns:26px 1fr;column-gap:10px;padding:14px 16px;border-radius:16px;transition:background .25s;cursor:default}
+.ov-legend li.hl{background:#fff;box-shadow:0 6px 20px -12px rgba(0,0,0,.25)}
+.ov-legend i{grid-row:span 2;width:26px;height:26px;border-radius:50%;background:var(--grad);color:#fff;font-style:normal;font-weight:700;font-size:13px;display:grid;place-items:center;margin-top:1px}
+.ov-legend b{font-size:16px}
+.ov-legend span{color:var(--ink2);font-size:14.5px;line-height:1.5;margin-top:3px}
+.ov-legend li>span{display:block}
+.card.big.rev{flex-direction:row-reverse}
+.card.big.rev .body{padding:44px 44px 44px 20px}
+.more{margin-top:26px;display:grid;grid-template-columns:120px 1fr;gap:20px;padding-top:24px;border-top:1px solid var(--line)}
+.more-label{font-size:15px;font-weight:600;color:var(--ink3)}
+.more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 28px}
+.more-grid b{display:block;font-size:15.5px}
+.more-grid div>span{display:block;color:var(--ink2);font-size:14px;line-height:1.55;margin-top:4px}
+@media (max-width:980px){.ov-legend,.more-grid{grid-template-columns:1fr 1fr}.more{grid-template-columns:1fr}.card.big.rev{flex-direction:column}.card.big.rev .body{padding:32px 30px 4px}}
+@media (max-width:680px){.ov-legend,.more-grid{grid-template-columns:1fr}.ov-pin{width:22px;height:22px;font-size:11px}}
+
+/* ---------------- details (bento) ---------------- */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:64px}
+.tile{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.tile .txt{padding:28px 28px 8px}
+.tile h3{font-size:20px}
+.tile p{margin:10px 0 0;color:var(--ink2);font-size:15.5px;line-height:1.55}
+.tile .media{margin:auto 16px 16px;border-radius:16px;overflow:hidden;background:#FDFDFD;aspect-ratio:16/10;display:grid;place-items:center;border:1px solid rgba(0,0,0,.04)}
+.tile .media img,.tile .media video{width:100%;height:100%;object-fit:cover}
+.tile .media.fit video{object-fit:contain}
+.tile .media img{cursor:zoom-in}
+.tile .seats{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px 4%}
+.tile .seats video{height:auto;object-fit:contain}
+.tile .seats video:first-child{width:96%}.tile .seats video:last-child{width:68%}
+.tile.wide{grid-column:1/-1;flex-direction:row;align-items:center}
+.tile.wide .txt{flex:0 0 30%;padding:40px 16px 40px 40px}
+.tile.wide .txt h3{font-size:clamp(24px,2.5vw,32px);letter-spacing:-.02em;line-height:1.18}
+.tile.wide .txt p{font-size:17px}
+.fruits{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:22px}
+.fruits figure{margin:0;background:#FDFDFD;border-radius:16px;border:1px solid rgba(0,0,0,.04);overflow:hidden}
+.fruits video{width:100%;aspect-ratio:1280/412;object-fit:cover}
+.fruits figcaption{font-size:13px;color:var(--ink2);padding:0 14px 10px;font-weight:500}
+.panelbox.split{display:grid;grid-template-columns:1fr 1.05fr;gap:30px;align-items:center}
+.panelbox .pmedia{border-radius:16px;overflow:hidden;box-shadow:0 10px 30px -14px rgba(0,0,0,.3);background:#fff}
+.panelbox .pmedia video{width:100%;aspect-ratio:16/10;object-fit:cover}
+.onboard{margin-top:22px}
+.onboard>h3{margin:40px 0 0;font-size:24px;letter-spacing:-.015em}
+.onboard .trio{margin-top:22px}
+@media (max-width:980px){.bento{grid-template-columns:1fr 1fr}.tile.wide{flex-direction:column;align-items:stretch}.tile.wide .txt{padding:30px 28px 0}.panelbox.split{grid-template-columns:1fr}}
+@media (max-width:680px){.bento{grid-template-columns:1fr}.fruits{grid-template-columns:1fr;padding:16px}}
+
+/* ---------------- lightbox ---------------- */
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(245,245,247,.86);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .3s;cursor:zoom-out;padding:24px}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox img{max-width:min(1600px,100%);max-height:92vh;border-radius:18px;box-shadow:0 40px 100px -30px rgba(0,0,0,.45);transform:scale(.96);transition:transform .35s cubic-bezier(.2,.75,.2,1)}
+.lightbox.open img{transform:none}
+
+/* ---------------- responsive ---------------- */
+@media (max-width:980px){
+  .bar nav{display:none}
+  .card.big{flex-direction:column;align-items:stretch}
+  .card.big .body{padding:32px 30px 4px}
+  .card.big .media{margin:18px}
+  .card,.card.half{grid-column:span 3}
+  .trio,.tiers,.steps,.links{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  section{padding:84px 0}
+  .bar .sibling span.full{display:none}
+  .bar .get{display:none}
+  .numbers{grid-template-columns:1fr 1fr;gap:26px 16px}
+  .grid{grid-template-columns:1fr}
+  .card,.card.half,.card.big{grid-column:auto}
+  .trio,.tiers,.steps,.links,.choose,.pair{grid-template-columns:1fr}
+  .connect{height:460vh}
+  .node em small{display:none}
+  .caption{height:150px}
+  .film-ui{opacity:1}
+  .final h2{font-size:34px}
+  .hero .icon-hero{width:88px;height:88px}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero h1 .line>span{animation:none;transform:none}
+  .film-frame{animation:none;opacity:1;transform:none}
+  .icon-hero,.squad img,.hub .core.pulse img{animation:none}
+  .statement{height:auto;padding:140px 0}
+  .statement .pin{position:static;height:auto}
+  .statement .w{color:#F5F5F7}
+  .connect{height:auto;padding:110px 0 40px}
+  .connect .pin{position:static;height:auto}
+  .node{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/icon.png?v=48508fb31b" alt="">Vanguard</a>
+    <nav>
+      <a href="#features"><span class="zh">功能</span><span class="en">Features</span></a>
+      <a href="#connect"><span class="zh">打通</span><span class="en">Connect</span></a>
+      <a href="#office">One more thing</a>
+      <a href="#install"><span class="zh">安装</span><span class="en">Install</span></a>
+      <a href="#docs"><span class="zh">文档</span><span class="en">Docs</span></a>
+    </nav>
+    <div class="right">
+      <a class="sibling" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/" title="SI Future HUD"><img src="assets/si-hud-logo.png?v=dc5a8d923b" alt=""><span class="full"><span class="zh">只要 HUD</span><span class="en">Just the HUD</span></span> ↗</a>
+      <div class="lang" role="group" aria-label="Language / 语言">
+        <button type="button" data-set-lang="zh" aria-pressed="true">中文</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="get" href="Vanguard.dmg" download><span class="zh">下载</span><span class="en">Download</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- ======================= cinematic scene ======================= -->
+<div class="opening" id="opening">
+<section class="scene" id="scene" aria-label="Vanguard">
+  <div class="scene-mask">
+  <div class="scene-stage" id="sceneStage">
+    <picture class="sc-base">
+      <source media="(max-aspect-ratio: 4/5)" srcset="media/hero/base-portrait.webp?v=15350bb932">
+      <img src="media/hero/base.webp?v=65a1ee61c9" alt="雨夜的天桥上，巨型粉色全息果冻俯视着一个仰头的人 / A giant pink hologram looks down at a man on a rainy walkway">
+    </picture>
+    <div class="sc-beacon" aria-hidden="true"><div class="bc-pivot"><img class="bc-halo" src="media/hero/beam.webp?v=2edc65b489" alt=""><img class="bc-ray" src="media/hero/beam.webp?v=2edc65b489" alt=""></div></div>
+    <div class="sc-holo"></div>
+    <div class="sc-scan"></div>
+    <div class="sc-glitch" id="scGlitch"></div>
+    <svg class="sc-hem" viewBox="0 0 2560 1071" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <filter id="scFlutter" filterUnits="userSpaceOnUse" x="1898" y="728" width="196" height="156">
+          <feTurbulence type="fractalNoise" baseFrequency="0.010 0.055" numOctaves="2" seed="4" result="n">
+            <animate attributeName="baseFrequency" dur="3.4s" values="0.010 0.055;0.014 0.075;0.011 0.060;0.010 0.055" repeatCount="indefinite"/>
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <linearGradient id="scHemFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".45" stop-color="#fff" stop-opacity="1"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+        </linearGradient>
+        <mask id="scHemMask" maskUnits="userSpaceOnUse" x="0" y="0" width="2560" height="1071">
+          <rect x="1912" y="740" width="168" height="128" rx="18" fill="url(#scHemFade)"/>
+        </mask>
+      </defs>
+      <image href="media/hero/base.webp?v=65a1ee61c9" x="0" y="0" width="2560" height="1071" filter="url(#scFlutter)" mask="url(#scHemMask)"/>
+    </svg>
+    <div class="sc-handwrap"><img class="sc-hand" src="media/hero/hand.png?v=808eb20e89" alt=""></div>
+    <div class="sc-flare" aria-hidden="true"><div class="bc-pivot"><i class="fl-lamp"></i><i class="fl-glow"></i><i class="fl-streak"></i></div></div>
+    <canvas class="sc-fx" id="sceneFx" aria-hidden="true"></canvas>
+    <div class="sc-tag" aria-label="You look busy, I can fix that. 你看起来很忙。交给我吧。">
+      <div class="tg-in">
+        <p class="tg-en"><span data-text="You look busy">You look busy</span><span data-text="I can fix that.">I can fix that.</span></p>
+        <span class="zh-line zh" data-text="你看起来很忙。交给我吧。">你看起来很忙。交给我吧。</span>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+</div>
+
+<!-- ======================= hero ======================= -->
+<div class="hero merged" id="intro">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"><b class="veil-blur"></b><i class="m1"></i><i class="m2"></i><canvas class="veil-gl" id="veilGl"></canvas></div>
+  <div class="hero-copy wrap">
+    <img class="icon-hero" src="assets/icon.png?v=48508fb31b" alt="Vanguard">
+    <div class="eyebrow"><img class="eb-icon" src="assets/icon.png?v=48508fb31b" alt="" aria-hidden="true">Vanguard <small>· v1.4.271</small></div>
+    <h1>
+      <span class="zh"><span class="line"><span style="--d:.12s">从使用 AI，</span></span><span class="line"><span style="--d:.3s">到<span class="grad">带领 AI。</span></span></span></span>
+      <span class="en"><span class="line"><span style="--d:.12s">From using AI</span></span><span class="line"><span style="--d:.3s">to <span class="grad">leading it.</span></span></span></span>
+    </h1>
+    <p class="lead">
+      <span class="zh">一个应用，管好你所有的 agent。Claude Code、Codex、程小帮和你电脑上的其他 agent 组成一支小队：<b>你派活、拍板、看全局</b>，它们互相接力。</span>
+      <span class="en">One app for all your agents. Claude Code, Codex, Chengxiaobang and the other agents on your Mac become one squad: <b>you assign, decide and oversee</b>, and they hand work to each other.</span>
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="Vanguard.dmg" download><span class="zh">下载 Vanguard</span><span class="en">Download for Mac</span></a>
+      <a class="btn ghost" href="https://applink.larkenterprise.com/client/chat/chatter/add_by_link?link_token=a9cr48e3-45d7-4aa1-ac37-b3a2992a83b2"><span class="zh">加入讨论群 ↗</span><span class="en">Join the group ↗</span></a>
+    </div>
+    <p class="meta"><span class="zh">macOS 13.4 及以上 · Apple 芯片 · 版本 1.4.271 · 免登录直接下载</span><span class="en">macOS 13.4+ · Apple silicon · version 1.4.271 · no sign‑in needed</span></p>
+    <p class="support">
+      <a href="https://applink.feishu.cn/client/chat/open?openId=ou_5c3fc5cc96ab4b401bdfd37b36f91126"><span class="zh">联系许成凯 ↗</span><span class="en">Contact Chengkai Xu ↗</span></a>
+      <a class="hudlink" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/"><span class="zh">只想要刘海上的 HUD？<b>SI Future HUD ↗</b></span><span class="en">Just want the notch HUD? <b>SI Future HUD ↗</b></span></a>
+    </p>
+  </div>
+  <div class="film" id="film">
+    <div class="film-frame">
+      <video id="filmVideo" muted loop playsinline preload="metadata" poster="media/film-poster.webp?v=41ce8e1816" aria-label="Vanguard 宣传片 / product film">
+        <source src="media/film-720p.mp4?v=73e4c93f4b" type="video/mp4" media="(max-width: 760px)">
+        <source src="media/film-1080p.mp4?v=b18b4bc083" type="video/mp4">
+      </video>
+      <div class="film-ui">
+        <button type="button" class="sound" id="filmSound"><span class="s-on"><span class="zh">🔊 开声音</span><span class="en">🔊 Sound on</span></span><span class="s-off"><span class="zh">🔇 静音</span><span class="en">🔇 Mute</span></span></button>
+        <button type="button" id="filmPlay"><span class="p-off"><span class="zh">暂停</span><span class="en">Pause</span></span><span class="p-on"><span class="zh">播放</span><span class="en">Play</span></span></button>
+        <button type="button" id="filmFull"><span class="zh">全屏</span><span class="en">Full screen</span></button>
+      </div>
+      <div class="film-bar" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= statement ======================= -->
+<section class="statement dark" aria-label="Vanguard">
+  <div class="pin">
+    <p class="zh" data-words>以前，你夹在 AI 中间：把 Codex 的结论复制给 Claude Code，一遍遍点“允许”，盯着谁做完了、谁卡住了。现在，它们是一支队伍。你只管派活、拍板、看全局。</p>
+    <p class="en" data-words>You used to sit between your AIs: copying Codex's answer into Claude Code, clicking Allow again and again, watching who was done and who was stuck. Now they work as a team. You just assign, decide and oversee.</p>
+  </div>
+</section>
+
+<!-- ======================= numbers ======================= -->
+<section style="padding-top:110px;padding-bottom:110px">
+  <div class="wrap">
+    <div class="numbers">
+      <div class="num reveal"><b data-count="54">0</b><span><span class="zh">种 agent 能在终端里起</span><span class="en">agents run in the terminal</span></span></div>
+      <div class="num reveal" style="--d:.1s"><b data-count="32">0</b><span><span class="zh">种能建成 Bot，进群干活</span><span class="en">can become Bots in a group</span></span></div>
+      <div class="num reveal" style="--d:.2s"><b data-count="5">0</b><span><span class="zh">条线，打通所有对话</span><span class="en">lines join every conversation</span></span></div>
+      <div class="num reveal" style="--d:.3s"><b data-count="1">0</b><span><span class="zh">个应用，HUD 已内置</span><span class="en">app, with the HUD built in</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= features ======================= -->
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">它做什么</span><span class="en">What it does</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">派活、拍板、看全局，<br>都在一个应用里。</span><span class="en">Assign, decide, oversee.<br>All in one app.</span></h2>
+    <div class="overview reveal">
+      <div class="ov-frame"><img loading="lazy" src="media/overview.webp?v=477d5f5db3" alt="Vanguard">
+        <button type="button" class="ov-pin" data-pin="1" style="left:13.5%;top:33.4%" aria-label="1">1</button>
+        <button type="button" class="ov-pin" data-pin="2" style="left:56.5%;top:25.0%" aria-label="2">2</button>
+        <button type="button" class="ov-pin" data-pin="3" style="left:64.5%;top:73.0%" aria-label="3">3</button>
+        <button type="button" class="ov-pin" data-pin="4" style="left:85.0%;top:27.6%" aria-label="4">4</button>
+        <button type="button" class="ov-pin" data-pin="5" style="left:59.0%;top:3.8%" aria-label="5">5</button>
+        <button type="button" class="ov-pin" data-pin="6" style="left:86.5%;top:94.5%" aria-label="6">6</button>
+      </div>
+      <ol class="ov-legend">
+        <li data-pin="1"><i>1</i><b><span class="zh">左栏三个页签</span><span class="en">Three tabs on the left</span></b><span><span class="zh">工作区是“地方”，开终端和聊天；活动是“现在”，谁在干活、谁在等你；Bots 是“人”，你的 AI 队友。</span><span class="en">Workspaces are places, where terminals and chats live; Activity is now, who is working and who is waiting; Bots are people, your AI teammates.</span></span></li>
+        <li data-pin="2"><i>2</i><b><span class="zh">中间是对话</span><span class="en">The conversation</span></b><span><span class="zh">群聊、私聊都在这里，@ 谁就叫醒谁。</span><span class="en">Groups and DMs live here; mention a Bot to wake it.</span></span></li>
+        <li data-pin="3"><i>3</i><b><span class="zh">敏感操作等你点头</span><span class="en">Risky steps wait</span></b><span><span class="zh">推送、删除这类操作停下来，批准或拒绝都在原处。</span><span class="en">Pushes and deletes stop here until you allow or deny them.</span></span></li>
+        <li data-pin="4"><i>4</i><b><span class="zh">右栏是 Bot 的资料</span><span class="en">The right column</span></b><span><span class="zh">人设、技能、记忆、电脑；也能换成像素办公室。</span><span class="en">Persona, skills, memory and computer, or the pixel office.</span></span></li>
+        <li data-pin="5"><i>5</i><b><span class="zh">顶上是刘海</span><span class="en">The notch</span></b><span><span class="zh">谁在等你，余光就能看到、直接处理。</span><span class="en">Who is waiting for you, at a glance and one click away.</span></span></li>
+        <li data-pin="6"><i>6</i><b><span class="zh">底下是状态栏</span><span class="en">The status bar</span></b><span><span class="zh">各家额度、需要你几件、今天花了多少。</span><span class="en">Every quota, how many things need you, today’s spend.</span></span></li>
+      </ol>
+    </div>
+
+    <!-- 派活 -->
+    <div class="group">
+      <div class="group-head reveal"><span class="no">01</span><h3><span class="zh">派活</span><span class="en">Assign</span></h3><p><span class="zh">在工作区开 agent，或者交给 Bot，像发消息一样。</span><span class="en">Open agents in a workspace or hand work to Bots, like sending a message.</span></p></div>
+      <div class="grid">
+        <article class="card big reveal">
+          <div class="body">
+            <span class="tag"><span class="zh">群聊</span><span class="en">Groups</span></span>
+            <h3><span class="zh">@ 谁，就叫醒谁。<br>Bot 之间会接力。</span><span class="en">Mention a Bot,<br>it gets to work.</span></h3>
+            <p><span class="zh">一句话 @ 两个 Bot，两个都醒来各干各的；Lens 修不了的，交给 Forge。每条消息最多连环唤醒 12 次，你点停止就停。没被叫到的，下次自动补看最近 40 条。</span><span class="en">Mention two Bots and both get to work; what Lens can’t fix goes to Forge. One message wakes at most 12 turns in a chain, and Stop ends it. A Bot that wasn’t called catches up on the last 40 messages next time.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/group-closeup.webp?v=06923353eb" alt=""></div>
+        </article>
+        <article class="card big rev reveal">
+          <div class="body">
+            <span class="tag"><span class="zh">工作区</span><span class="en">Workspaces</span></span>
+            <h3><span class="zh">终端和聊天，<br>都在工作区。</span><span class="en">Terminals and chats,<br>side by side.</span></h3>
+            <p><span class="zh">工作区点“+”，本机所有 agent 都在菜单里，选模型和推理强度，开聊天或开终端都行。几个 agent 在同一个工作树里并排干活，终端里的 agent 还能直接互相问；改动和提交就在右栏，一键推送并开 PR。</span><span class="en">Press + in a workspace and every agent on your Mac is there; pick a model and effort, then open a chat or a terminal. Several agents work side by side in one worktree, and terminal agents can ask each other directly; changes and commits sit in the right column, one click to push and open a PR.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/workspace-side.webp?v=378c186953" alt=""></div>
+        </article>
+        <article class="card  reveal">
+          <div class="body">
+            <h3><span class="zh">私聊，像发 iMessage</span><span class="en">DMs, like iMessage</span></h3>
+            <p><span class="zh">蓝白气泡、已读；Bot 的回复能带卡片，比如 3 个 PR 的状态。</span><span class="en">Blue and white bubbles with read receipts; a Bot’s reply can carry a card, like the status of three PRs.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/direct.webp?v=fca4ed2b70" alt=""></div>
+        </article>
+        <article class="card  reveal" style="--d:.08s">
+          <div class="body">
+            <h3><span class="zh">换个 agent，接着干</span><span class="en">Switch agents, keep going</span></h3>
+            <p><span class="zh">Claude 额度快用完？右键交接给 Codex，它带着上下文修完、提交。原来的会话不动。</span><span class="en">Claude nearly out of quota? Hand the session to Codex; it picks up the context, finishes and commits. The original stays put.</span></p>
+          </div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/handoff-poster.webp?v=6de5ad0bf9" data-auto><source src="media/handoff.mp4?v=6c1e6cc72a" type="video/mp4"></video></div>
+        </article>
+        <article class="card  reveal" style="--d:.16s">
+          <div class="body">
+            <h3><span class="zh">撤销一轮，文件一起回去</span><span class="en">Undo a turn, files included</span></h3>
+            <p><span class="zh">每轮开始前自动拍快照。改坏了就退回那一轮，恢复前先列出会动哪些文件，反悔还能撤销。</span><span class="en">Every turn starts with a snapshot. Roll back a bad turn; you see which files will change first, and you can undo the rollback too.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/rewind.webp?v=eb4c5bdb0a" alt=""></div>
+        </article>
+        <article class="card half reveal">
+          <div class="body">
+            <h3><span class="zh">插一句话，不用打断</span><span class="en">Add a word without interrupting</span></h3>
+            <p><span class="zh">agent 正跑着，选“下一步带话”或“停在下一步”。话在它下一次调用工具时生效，生效前还能取消。</span><span class="en">While an agent runs, add a note for its next step or have it stop there. It takes effect at the next tool call, and you can still cancel before then.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/steer.webp?v=f64eb95c18" alt=""></div>
+        </article>
+        <article class="card half reveal" style="--d:.08s">
+          <div class="body">
+            <h3><span class="zh">做完叫我</span><span class="en">Ping me when it’s done</span></h3>
+            <p><span class="zh">说一句“CI 跑完叫我”，Bot 就等着；一出结果它自己醒来汇报，到点还没结果也会来说一声。</span><span class="en">Say “ping me when CI finishes” and the Bot waits. It wakes up to report the result, and checks in if the deadline passes first.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/notify-done.webp?v=117633ebed" alt=""></div>
+        </article>
+      </div>
+      <div class="more reveal"><div class="more-label"><span class="zh">还有</span><span class="en">Also</span></div><div class="more-grid">
+        <div><b><span class="zh">计划进度</span><span class="en">Plan progress</span></b><span><span class="zh">先列计划，再一步步打勾；群里是一张带进度条的任务卡。</span><span class="en">It lists a plan, then ticks it off; in a group it’s a task card with a progress bar.</span></span></div>
+        <div><b><span class="zh">空转提醒</span><span class="en">Loop warning</span></b><span><span class="zh">同一条命令连续 8 次，或连续 5 次失败，就提醒你；10 分钟内不重复打扰。</span><span class="en">Eight identical commands or five failures in a row trigger a warning, at most once per 10 minutes.</span></span></div>
+        <div><b><span class="zh">派生会话</span><span class="en">Fork a session</span></b><span><span class="zh">同一个 agent 换个修法，开在新工作区；原会话不受影响。</span><span class="en">Try another approach with the same agent in a new workspace, leaving the original untouched.</span></span></div>
+        <div><b><span class="zh">Bot 换引擎</span><span class="en">Switch a Bot’s engine</span></b><span><span class="zh">从 Claude Code 换到 Codex，人设、记忆、自动化都保留。</span><span class="en">Move a Bot from Claude Code to Codex and keep its persona, memory and automations.</span></span></div>
+        <div><b><span class="zh">@ 提及 Bot 或文件</span><span class="en">Mention Bots or files</span></b><span><span class="zh">最近、Bots、文件三组；另一台电脑上的 Bot 标出电脑名。</span><span class="en">Recent, Bots and Files; Bots on another Mac show its name.</span></span></div>
+        <div><b><span class="zh">人设、技能、记忆</span><span class="en">Persona, skills, memory</span></b><span><span class="zh">每个 Bot 一张资料页；聊天里说一句“记住”，就记进记忆卡。</span><span class="en">Every Bot has a profile; say “remember this” and it lands on a memory card.</span></span></div>
+      </div></div>
+    </div>
+
+    <!-- 拍板 -->
+    <div class="group">
+      <div class="group-head reveal"><span class="no">02</span><h3><span class="zh">拍板</span><span class="en">Decide</span></h3><p><span class="zh">要你点头的事，一件都不会漏。</span><span class="en">Nothing that needs your OK slips by.</span></p></div>
+      <div class="grid">
+        <article class="card big reveal">
+          <div class="body">
+            <span class="tag"><span class="zh">活动</span><span class="en">Activity</span></span>
+            <h3><span class="zh">谁在干活、谁在等你，<br>活动页一眼看到。</span><span class="en">Who’s working, who’s waiting,<br>on one page.</span></h3>
+            <p><span class="zh">“需要你”排最上面：提问、待批准、完成待验收。Vanguard 里、终端里、桌面窗口里的会话放在一起，点一行就回到现场。处理一处，左栏、状态栏、刘海同步减一；也能先延后。</span><span class="en">Needs you comes first: questions, approvals, work to check. Sessions in Vanguard, in terminals and in desktop apps share the page; click a row to jump back in. Handle one and the sidebar, status bar and notch update together; or snooze it.</span></p>
+          </div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/needs-sync-poster.webp?v=8c30750646" data-auto><source src="media/needs-sync.mp4?v=4a99300ec4" type="video/mp4"></video></div>
+        </article>
+        <article class="card half reveal">
+          <div class="body">
+            <h3><span class="zh">敏感操作，等你点头</span><span class="en">Risky steps wait for you</span></h3>
+            <p><span class="zh">审批卡写清楚它要做什么：批准一次、本会话总是允许，或者拒绝并附一句理由，Bot 照着改。</span><span class="en">Each approval card says exactly what it will do: allow once, always allow in this session, or deny with a reason the Bot will follow.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/approval.webp?v=cbfc1518ca" alt=""></div>
+        </article>
+        <article class="card half reveal" style="--d:.08s">
+          <div class="body">
+            <h3><span class="zh">开会时，用余光处理</span><span class="en">Handle it from the corner of your eye</span></h3>
+            <p><span class="zh">窗口一堆的时候，刘海一条条列出等你的事，批准、拒绝、回答提问都在刘海里点。</span><span class="en">When windows pile up, the notch lists what’s waiting; approve, deny or answer right there.</span></p>
+          </div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/notch-poster.webp?v=cacc18981d" data-auto><source src="media/notch.mp4?v=03c47e6950" type="video/mp4"></video></div>
+        </article>
+      </div>
+      <div class="more reveal"><div class="more-label"><span class="zh">还有</span><span class="en">Also</span></div><div class="more-grid">
+        <div><b><span class="zh">长期授权</span><span class="en">Standing approvals</span></b><span><span class="zh">总是允许过的规则都列在设置里，来自哪个客户端、哪份配置，一键撤销。</span><span class="en">Every always‑allow rule is listed in Settings with its client and config file, and can be revoked.</span></span></div>
+        <div><b><span class="zh">不只管 Vanguard</span><span class="en">Beyond Vanguard</span></b><span><span class="zh">终端里和各家桌面版的审批，也送到刘海上。</span><span class="en">Approvals from terminals and desktop apps reach the notch too.</span></span></div>
+        <div><b><span class="zh">问你时附上原因</span><span class="en">Questions with context</span></b><span><span class="zh">Bot 来问你时给好选项，还写明为什么来问。</span><span class="en">When a Bot asks, it offers options and says why it’s asking.</span></span></div>
+      </div></div>
+    </div>
+
+    <!-- 看全局 -->
+    <div class="group">
+      <div class="group-head reveal"><span class="no">03</span><h3><span class="zh">看全局</span><span class="en">Oversee</span></h3><p><span class="zh">谁在干活、花了多少、额度还剩多少。</span><span class="en">Who’s working, what it costs, what quota is left.</span></p></div>
+      <div class="grid">
+        <article class="card big reveal">
+          <div class="body">
+            <span class="tag"><span class="zh">用量</span><span class="en">Usage</span></span>
+            <h3><span class="zh">花了多少，<br>一眼看到。</span><span class="en">What you’ve spent,<br>at a glance.</span></h3>
+            <p><span class="zh">今日花费和预算、谁花得多、各家额度圆环、聊天轮次、缓存命中，一页看完。花费按本机记录估算，记在各家自己的账号上。</span><span class="en">Today’s spend against budget, who spent most, a quota ring per provider, chat turns and cache hits, all on one page. Costs are estimated from local records and billed to each provider’s own account.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/usage.webp?v=6c68fdf7cd" alt=""></div>
+        </article>
+        <article class="card half reveal">
+          <div class="body">
+            <h3><span class="zh">各家额度，常驻状态栏</span><span class="en">Every quota in the status bar</span></h3>
+            <p><span class="zh">每家 agent 一条小进度条：用了多少、多久重置。点开看每个窗口的消耗速度和预计用完时间，几个账户一键切换。</span><span class="en">One small bar per provider: how much is used and when it resets. Open it for burn rate and run‑out time per window, and switch accounts in one click.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/status-bar.webp?v=c5d3d66e6e" alt=""></div>
+        </article>
+        <article class="card half reveal" style="--d:.08s">
+          <div class="body">
+            <h3><span class="zh">谁占了内存，一眼看到</span><span class="en">Where the memory went</span></h3>
+            <p><span class="zh">内存分给 Vanguard、各家 agent、其他终端各多少；按项目、工作树、会话列出 CPU 和内存。没人管的孤立终端，一键清理。</span><span class="en">Memory split between Vanguard, each agent and other terminals; CPU and memory by project, worktree and session. Orphaned terminals are flagged and cleared in one click.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/resource.webp?v=0ce9aea6fd" alt=""></div>
+        </article>
+        <article class="card half reveal">
+          <div class="body">
+            <h3><span class="zh">鼠标移上刘海，额度尽收眼底</span><span class="en">Hover the notch, see every quota</span></h3>
+            <p><span class="zh">SI Future HUD 的面板原样保留：各家额度窗口、重置倒计时、token 消耗。HUD 内置在 Vanguard 里，不多占 Dock 图标。<a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">只要这块刘海？</a></span><span class="en">The SI Future HUD panel, kept as it was: every quota window, reset countdowns, token use. It’s built into Vanguard, with no extra Dock icon. <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">Just want the notch?</a></span></p>
+          </div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/hud-hover-poster.webp?v=125b09a1e7" data-auto><source src="media/hud-hover.mp4?v=fa4c74ff94" type="video/mp4"></video></div>
+        </article>
+        <article class="card half reveal" style="--d:.08s">
+          <div class="body">
+            <h3><span class="zh">所有 agent 的会话，一处搜</span><span class="en">Search every agent’s history</span></h3>
+            <p><span class="zh">22 家 agent 的本机会话记录建成全文索引。搜到就能接着聊，或者交给别的 agent；agent 自己也会搜。</span><span class="en">Local session logs from 22 agents in one full‑text index. Pick up where you left off or hand it to another agent; agents search it too.</span></p>
+          </div>
+          <div class="media"><img loading="lazy" src="media/search.webp?v=92219b8962" alt=""></div>
+        </article>
+      </div>
+      <div class="more reveal"><div class="more-label"><span class="zh">还有</span><span class="en">Also</span></div><div class="more-grid">
+        <div><b><span class="zh">额度预警</span><span class="en">Quota alerts</span></b><span><span class="zh">已用 90%，或照现在的速度会在重置前用完，就提醒；恢复后告诉你“可以继续”。</span><span class="en">A heads‑up at 90% or when you’ll run out before reset, and a note when you can carry on.</span></span></div>
+        <div><b><span class="zh">预算线</span><span class="en">Budget lines</span></b><span><span class="zh">每天、每周设限额，到 80% 和 100% 各提醒一次。</span><span class="en">Daily and weekly limits, with a reminder at 80% and 100%.</span></span></div>
+        <div><b><span class="zh">统计窗口</span><span class="en">Statistics</span></b><span><span class="zh">按 15 分钟到 1 小时看各家的 token 和花费，范围从 5 小时到 30 天。</span><span class="en">Tokens and cost per provider in 15‑minute to hourly steps, over 5 hours to 30 days.</span></span></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= bots ======================= -->
+<section class="center" id="bots">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">水果小队</span><span class="en">The fruit squad</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">每个 Bot，<br>都是你的队员。</span><span class="en">Every Bot<br>is on your team.</span></h2>
+    <p class="sub reveal" style="--d:.16s"><span class="zh">有名字、有分工、有记忆。招募位一点就招新，组队位一点就拉群；换个引擎，人设和记忆都在。</span><span class="en">Each has a name, a job and a memory. Tap the empty seat to recruit, tap the team slot to start a group; switch its engine and the persona and memory stay.</span></p>
+    <div class="squad reveal" style="--d:.2s">
+      <figure style="--i:0"><img src="assets/fruit-pine.png?v=0e0bf4cf6f" alt=""><figcaption>Pilot<small><span class="zh">带队</span><span class="en">lead</span></small></figcaption></figure>
+      <figure style="--i:1"><img src="assets/fruit-blue.png?v=638ba76dfc" alt=""><figcaption>Forge<small><span class="zh">写代码</span><span class="en">builds</span></small></figcaption></figure>
+      <figure style="--i:2"><img src="assets/fruit-mangosteen.png?v=48b88029dd" alt=""><figcaption>Lens<small><span class="zh">审代码</span><span class="en">reviews</span></small></figcaption></figure>
+      <figure style="--i:3"><img src="assets/fruit-orange.png?v=ff9df3886a" alt=""><figcaption>Harbor<small><span class="zh">发版</span><span class="en">ships</span></small></figcaption></figure>
+      <figure style="--i:4"><img src="assets/fruit-cherry.png?v=43fc7e36d3" alt=""><figcaption>Probe<small><span class="zh">跑测试</span><span class="en">tests</span></small></figcaption></figure>
+      <figure style="--i:5"><img src="assets/fruit-green.png?v=98316effea" alt=""><figcaption><span class="zh">程小帮</span><span class="en">Chengxiaobang</span><small><span class="zh">懂公司业务</span><span class="en">knows the company</span></small></figcaption></figure>
+      <figure style="--i:6"><img src="assets/fruit-peach.png?v=445e3d438a" alt=""><figcaption>Scout<small><span class="zh">查资料</span><span class="en">researches</span></small></figcaption></figure>
+    </div>
+    <div class="trio">
+      <figure class="shot reveal"><div class="frame"><img loading="lazy" src="media/recruit.webp?v=4cea80860c" alt=""></div><figcaption><b><span class="zh">招募新 Bot</span><span class="en">Recruit a Bot</span></b><span class="zh">选头像、起名、写清楚它负责什么。本机装了哪个 agent，就能选哪个当引擎。</span><span class="en">Pick a face and a name, say what it's for. Any agent installed on your Mac can be its engine.</span></figcaption></figure>
+      <figure class="shot reveal" style="--d:.08s"><div class="frame"><img loading="lazy" src="media/profile.webp?v=a79f550ece" alt=""></div><figcaption><b><span class="zh">人设、技能、记忆</span><span class="en">Persona, skills, memory</span></b><span class="zh">聊天里说一句“记住”，它就记进记忆卡。成功率、最近干了什么，一眼看到。</span><span class="en">Say “remember this” in chat and it lands on its memory card. Success rate and latest work at a glance.</span></figcaption></figure>
+      <figure class="shot reveal" style="--d:.16s"><div class="frame"><img loading="lazy" src="media/new-group.webp?v=6bcc5b83d4" alt=""></div><figcaption><b><span class="zh">拉一个群</span><span class="en">Start a group</span></b><span class="zh">勾几个 Bot，选一个组长。外面的程小帮，经 HUD 也能进群。</span><span class="en">Tick a few Bots and choose a lead. Chengxiaobang outside Vanguard can join through the HUD.</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= connect (scroll scene) ======================= -->
+<section class="connect alt" id="connect">
+  <div class="pin">
+    <div class="head wrap">
+      <div class="kicker"><span class="zh">所有对话打通</span><span class="en">Every conversation, connected</span></div>
+      <h2><span class="zh">Vanguard 是总机，<span class="grad">每条线都经你同意。</span></span><span class="en">Vanguard is the switchboard. <span class="grad">Every line, with your OK.</span></span></h2>
+    </div>
+    <div class="hub" id="hub">
+      <svg viewBox="0 0 1000 520" aria-hidden="true">
+        <defs><linearGradient id="hubGrad" x1="0" x2="1"><stop offset="0" stop-color="#E67700"/><stop offset="1" stop-color="#D9480F"/></linearGradient></defs>
+        <g id="rails">
+          <path class="rail" d="M500 230 C 400 170, 260 100, 150 90"/>
+          <path class="rail" d="M500 230 C 600 170, 740 100, 850 90"/>
+          <path class="rail" d="M500 230 C 640 260, 800 320, 900 350"/>
+          <path class="rail" d="M500 230 C 470 300, 470 380, 500 430"/>
+          <path class="rail" d="M500 230 C 360 260, 200 320, 100 350"/>
+        </g>
+        <g id="lits">
+          <path class="lit" d="M500 230 C 400 170, 260 100, 150 90"/>
+          <path class="lit" d="M500 230 C 600 170, 740 100, 850 90"/>
+          <path class="lit" d="M500 230 C 640 260, 800 320, 900 350"/>
+          <path class="lit" d="M500 230 C 470 300, 470 380, 500 430"/>
+          <path class="lit" d="M500 230 C 360 260, 200 320, 100 350"/>
+        </g>
+        <circle id="spark" r="7" fill="#D9480F" opacity="0"/>
+      </svg>
+      <div class="core" id="core"><img src="assets/icon.png?v=48508fb31b" alt=""><em>Vanguard</em></div>
+      <div class="node" style="left:15%;top:17.3%"><div class="ic"><img src="assets/fruit-pine.png?v=0e0bf4cf6f" alt=""></div><em><span class="zh">你的 Bot</span><span class="en">Your Bots</span><small><span class="zh">群聊和私聊</span><span class="en">groups and DMs</span></small></em></div>
+      <div class="node" style="left:85%;top:17.3%"><div class="ic" style="background:#1D1D1F"><svg viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7l5 5-5 5"/><path d="M13 17h6"/></svg></div><em><span class="zh">终端里的 agent</span><span class="en">Terminal agents</span><small><span class="zh">互相发消息</span><span class="en">message each other</span></small></em></div>
+      <div class="node" style="left:90%;top:67.3%"><div class="ic"><img src="assets/si-hud-logo.png?v=dc5a8d923b" alt="" style="object-fit:contain;padding:8px"></div><em><span class="zh">桌面窗口</span><span class="en">Desktop apps</span><small><span class="zh">经 HUD 传话</span><span class="en">through the HUD</span></small></em></div>
+      <div class="node" style="left:50%;top:82.7%"><div class="ic"><img src="assets/agent-grok-bot.png?v=3e3bb0057a" alt=""></div><em><span class="zh">来访的 agent</span><span class="en">Visiting agents</span><small><span class="zh">每次你点头</span><span class="en">you approve each</span></small></em></div>
+      <div class="node" style="left:10%;top:67.3%"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.6"/><path d="M2 19h20"/></svg></div><em><span class="zh">另一台电脑</span><span class="en">Another Mac</span><small><span class="zh">配对直连</span><span class="en">paired, direct</span></small></em></div>
+    </div>
+    <div class="caption wrap" aria-live="polite">
+      <div data-step="0"><span class="zh">你的 Bot：@ 谁就叫醒谁。</span><span class="en">Your Bots: mention one to wake it.</span><small><span class="zh">Bot 之间会接力；没被叫到的，下次自动补看最近 40 条。</span><span class="en">Bots hand off to each other; one that wasn't called catches up on the last 40 messages.</span></small></div>
+      <div data-step="1"><span class="zh">终端里的 agent，也能互相发消息。</span><span class="en">Agents in terminals can message each other.</span><small><span class="zh">收件的终端一空闲，Vanguard 就提醒它查收。</span><span class="en">As soon as the receiving terminal is idle, Vanguard tells it to check.</span></small></div>
+      <div data-step="2"><span class="zh">外面开着的 Claude、Codex、程小帮，经 HUD 传话。</span><span class="en">Claude, Codex and Chengxiaobang apps talk through the HUD.</span><small><span class="zh">每条消息先在刘海上弹卡，你点“发送”才送。程小帮还能直接进群。</span><span class="en">Each message waits on the notch until you press Send. Chengxiaobang can even join a group.</span></small></div>
+      <div data-step="3"><span class="zh">别的 agent 来问你的 Bot，每次你点头。</span><span class="en">Other agents can ask your Bots, with your OK each time.</span><small><span class="zh">默认关着；只能问开了“允许来访”的 Bot。</span><span class="en">Off by default, and only Bots that allow visitors can be asked.</span></small></div>
+      <div data-step="4"><span class="zh">配对另一台电脑，那边的 Bot 也能进群。</span><span class="en">Pair another Mac and its Bots join your groups.</span><small><span class="zh">内容端到端加密，只走直连。</span><span class="en">End‑to‑end encrypted, direct connections only.</span></small></div>
+      <div data-step="5"><span class="zh">五条线，同一套规矩。</span><span class="en">Five lines, one set of rules.</span><small><span class="zh">一条消息最多连环唤醒 12 次；外部成员不旁听；别人的话只当资料、不当指令；敏感操作等你点头。</span><span class="en">At most 12 chained turns per message; outsiders don't overhear; what others say is reference, never instructions; risky steps wait for you.</span></small></div>
+    </div>
+  </div>
+</section>
+<section class="talk alt">
+  <div class="wrap">
+    <figure class="shot reveal"><div class="frame"><video muted loop playsinline preload="none" poster="media/talk-poster.webp?v=ae406f40ba" data-auto><source src="media/talk.mp4?v=4f5e192190" type="video/mp4"></video></div><figcaption><b><span class="zh">一句话，问遍各处。</span><span class="en">Ask everywhere in one message.</span></b><span class="zh">回复带着来源，回到同一个群里。</span><span class="en">Answers come back to the same group, each with its source.</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ======================= details ======================= -->
+<section id="details" class="alt">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">小巧思</span><span class="en">Little touches</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">小地方，<br>也很用心。</span><span class="en">Small things,<br>done with care.</span></h2>
+    <p class="sub reveal" style="--d:.14s"><span class="zh">这些不写在功能清单里，用起来才会发现。</span><span class="en">None of these make the feature list. You notice them when you use it.</span></p>
+    <div class="bento">
+      <article class="tile wide reveal">
+        <div class="txt">
+          <h3><span class="zh">水果小队，<br>干活时会换道具。</span><span class="en">The fruit squad<br>picks up its tools.</span></h3>
+          <p><span class="zh">闲着时 Q 弹；读文件捧着书，写代码敲键盘，用电脑盯着屏幕。动画只挪图层、不重画，一直动着也省电。</span><span class="en">Idle, they wobble; reading, they hold a book; writing, they type; on the computer, they watch the screen. The animation moves layers instead of redrawing, so it stays light on power.</span></p>
+        </div>
+        <div class="fruits">
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-idle-poster.webp?v=c00779bfc1" data-auto><source src="media/fruit-idle.mp4?v=7a212ac081" type="video/mp4"></video><figcaption><span class="zh">闲着</span><span class="en">Idle</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-read-poster.webp?v=26c4d4a1c5" data-auto><source src="media/fruit-read.mp4?v=966b3973ef" type="video/mp4"></video><figcaption><span class="zh">读文件</span><span class="en">Reading</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-type-poster.webp?v=38e789c89a" data-auto><source src="media/fruit-type.mp4?v=e84c0336ed" type="video/mp4"></video><figcaption><span class="zh">写代码</span><span class="en">Writing</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-computer-poster.webp?v=8cdbd33895" data-auto><source src="media/fruit-computer.mp4?v=a9c1bcaf6d" type="video/mp4"></video><figcaption><span class="zh">用电脑</span><span class="en">On the computer</span></figcaption></figure>
+        </div>
+      </article>
+      <article class="tile reveal">
+        <div class="txt"><h3><span class="zh">彩色回应</span><span class="en">Colorful reactions</span></h3><p><span class="zh">鼠标移到消息上，六个彩色回应弹出来。点一下不打断 Bot，下一轮它会看到。</span><span class="en">Hover a message and six colorful reactions pop up. Tapping one doesn't interrupt the Bot; it sees it next turn.</span></p></div>
+        <div class="media"><video muted loop playsinline preload="none" poster="media/react-pop-poster.webp?v=45cb695dcc" data-auto><source src="media/react-pop.mp4?v=d574bba4e3" type="video/mp4"></video></div>
+      </article>
+      <article class="tile reveal" style="--d:.08s">
+        <div class="txt"><h3><span class="zh">每个回应都有小动作</span><span class="en">Each reaction has a move</span></h3><p><span class="zh">悬停时，每个图标都动得不一样。</span><span class="en">Hover, and every icon moves in its own way.</span></p></div>
+        <div class="media"><video muted loop playsinline preload="none" poster="media/react-hover-poster.webp?v=ea40ff828f" data-auto><source src="media/react-hover.mp4?v=fa0fe74c11" type="video/mp4"></video></div>
+      </article>
+      <article class="tile reveal" style="--d:.16s">
+        <div class="txt"><h3><span class="zh">空座位，一点就来人</span><span class="en">An empty seat, a new teammate</span></h3><p><span class="zh">头像行末尾的空座位一点就招新 Bot；会话列表末尾三个小水果，一点就拉群。</span><span class="en">The empty seat at the end of the avatars recruits a Bot; the three little fruits at the end of the list start a group.</span></p></div>
+        <div class="media seats"><video muted loop playsinline preload="none" poster="media/recruit-seat-poster.webp?v=ac29160ed4" data-auto><source src="media/recruit-seat.mp4?v=f2719d0d56" type="video/mp4"></video><video muted loop playsinline preload="none" poster="media/team-seat-poster.webp?v=14784cca6d" data-auto><source src="media/team-seat.mp4?v=9cdddef8ad" type="video/mp4"></video></div>
+      </article>
+      <article class="tile reveal">
+        <div class="txt"><h3><span class="zh">只说一次的小提示</span><span class="en">Tips that speak once</span></h3><p><span class="zh">第一次见到回应和审批时，原处冒一句话；看过就不再出现。</span><span class="en">The first time you see reactions or an approval, a one‑line tip appears right there, and never again.</span></p></div>
+        <div class="media"><img loading="lazy" src="media/tips-once.webp?v=7b07323794" alt=""></div>
+      </article>
+      <article class="tile reveal" style="--d:.08s">
+        <div class="txt"><h3><span class="zh">回复能展开</span><span class="en">Replies unfold</span></h3><p><span class="zh">点开“工作了 41s”，读了哪些文件、改了哪些、跑了什么命令，连改动差异都在。</span><span class="en">Open “Worked for 41s” to see the files it read and changed, the commands it ran, and the diff.</span></p></div>
+        <div class="media"><img loading="lazy" src="media/work-log.webp?v=e7146bfd36" alt=""></div>
+      </article>
+      <article class="tile reveal" style="--d:.16s">
+        <div class="txt"><h3><span class="zh">小机器人跟着干活变</span><span class="en">The little bot acts it out</span></h3><p><span class="zh">思考、改代码、等你批准、完成，刘海上的小机器人换着动作告诉你。</span><span class="en">Thinking, editing, waiting for you, done: the bot on the notch acts out each one.</span></p></div>
+        <div class="media"><video muted loop playsinline preload="none" poster="media/hud-robots-poster.webp?v=92f61553a2" data-auto><source src="media/hud-robots.mp4?v=91667f1b88" type="video/mp4"></video></div>
+      </article>
+      <article class="tile reveal">
+        <div class="txt"><h3><span class="zh">做完，冒个气泡</span><span class="en">Done? A bubble says so</span></h3><p><span class="zh">活一干完，办公室里的 Bot 头上冒出它的最后一句话。不用切窗口也知道谁做完了。</span><span class="en">When a Bot finishes, its last line pops up over its head in the office. No window switching needed.</span></p></div>
+        <div class="media"><img loading="lazy" src="media/office-bubble.webp?v=c994baa76e" alt=""></div>
+      </article>
+      <article class="tile reveal" style="--d:.08s">
+        <div class="txt"><h3><span class="zh">深色模式</span><span class="en">Dark mode</span></h3><p><span class="zh">iMessage 的深色气质，气泡、卡片、审批卡都重新配色，晚上看不刺眼。</span><span class="en">iMessage‑style dark, with bubbles, cards and approvals all recolored. Easy on the eyes at night.</span></p></div>
+        <div class="media"><img loading="lazy" src="media/dark.webp?v=dc2903e812" alt=""></div>
+      </article>
+      <article class="tile reveal" style="--d:.16s">
+        <div class="txt"><h3><span class="zh">三种形态，六种光晕</span><span class="en">Three looks, six glows</span></h3><p><span class="zh">MacBook 用刘海，外接屏用动态或简约；光晕有柔光、点阵、字符、色块、盲文、二进制。</span><span class="en">The notch on a MacBook, Dynamic or Simple on other screens; glows in soft, dots, characters, blocks, braille and binary.</span></p></div>
+        <div class="media"><img loading="lazy" src="media/hud-looks.webp?v=24105886bb" alt=""></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= one more thing ======================= -->
+<section class="omt dark" id="office">
+  <div class="wrap">
+    <div class="big reveal">One more thing<span class="dot"></span></div>
+    <h2 class="reveal" style="--d:.2s;margin-top:40px;font-size:clamp(28px,4vw,50px)"><span class="zh">像素办公室：<span class="grad">余光里，看见整支队伍。</span></span><span class="en">The pixel office: <span class="grad">your whole team, at a glance.</span></span></h2>
+    <p class="sub reveal" style="--d:.3s"><span class="zh">办公室就在右栏，和群聊并排。每个 agent 一张工位：问号是在等你，感叹号是卡住了，做完冒个气泡说一句。点一下，跳到它的聊天。</span><span class="en">It sits in the right column next to the chat. Every agent has a desk: a question mark means it's waiting for you, an exclamation mark means it's stuck, and a bubble pops up when it's done. Click to jump to its chat.</span></p>
+    <div class="wide reveal" style="--d:.1s"><video muted loop playsinline preload="none" poster="media/office-interact-poster.webp?v=ba59beacfd" data-auto><source src="media/office-interact.mp4?v=dbb4e9615a" type="video/mp4"></video></div>
+    <div class="pair">
+      <figure class="shot reveal"><div class="frame"><video muted loop playsinline preload="none" poster="media/office-play-poster.webp?v=5c4b61b6c0" data-auto><source src="media/office-play.mp4?v=3de1e67f9c" type="video/mp4"></video></div><figcaption><b><span class="zh">闲着去玩，有活就回</span><span class="en">Idle Bots go play</span></b><span class="zh">乒乓、游泳、食堂、羽毛球；一来活，马上回工位。</span><span class="en">Ping‑pong, the pool, the canteen, badminton; back at the desk the moment work arrives.</span></figcaption></figure>
+      <figure class="shot reveal" style="--d:.1s"><div class="frame"><img loading="lazy" src="media/office-daynight.webp?v=e8c14b5b24" alt=""></div><figcaption><b><span class="zh">昼夜和节日</span><span class="en">Day, night and holidays</span></b><span class="zh">四个时段的光线，还有圣诞季。窗外是上海外滩。</span><span class="en">Four times of day and a Christmas season, with the Shanghai Bund outside.</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= agents ======================= -->
+<section id="agents">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">支持的 agent</span><span class="en">Supported agents</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">你在用的，基本都在。</span><span class="en">The agents you already use.</span></h2>
+    <p class="sub reveal" style="--d:.12s"><span class="zh">Vanguard 不自带模型，也不替换 agent。它用各家官方接口驱动你电脑上装好的 agent，它们一升级，Vanguard 就跟着变强。</span><span class="en">Vanguard brings no model of its own and replaces no agent. It drives the agents already on your Mac through their official interfaces, so every upgrade they ship makes Vanguard better too.</span></p>
+    <div class="tiers">
+      <div class="tier reveal"><b>54<small><span class="zh">种</span></small></b><span><span class="zh">能在终端里起</span><span class="en">run in a terminal</span></span></div>
+      <div class="tier reveal" style="--d:.08s"><b>40<small><span class="zh">种</span></small></b><span><span class="zh">能用聊天界面</span><span class="en">work in the chat view</span></span></div>
+      <div class="tier hi reveal" style="--d:.16s"><b>32<small><span class="zh">种</span></small></b><span><span class="zh">能建成 Bot，进群干活</span><span class="en">can be Bots in your groups</span></span></div>
+    </div>
+    <div class="logos reveal" style="--d:.1s">
+      <span class="logo"><img src="assets/agent-claude.png?v=25cdd92a5c" alt="">Claude Code</span>
+      <span class="logo"><img src="assets/agent-chatgpt.png?v=02d5b6fb7e" alt="">Codex</span>
+      <span class="logo"><img src="assets/agent-chengxiaobang.png?v=5c69526809" alt=""><span class="zh">程小帮</span><span class="en">Chengxiaobang</span></span>
+      <span class="logo"><img src="assets/agent-cursor.png?v=e47eaeea05" alt="">Cursor</span>
+      <span class="logo"><img src="assets/agent-grok-bot.png?v=3e3bb0057a" alt="">Grok</span>
+      <span class="chip">Gemini</span><span class="chip">Kiro</span><span class="chip">GitHub Copilot</span><span class="chip">OpenCode</span><span class="chip">Kimi</span><span class="chip">Qwen Code</span><span class="chip">…</span>
+    </div>
+    <p class="note reveal"><span class="zh">Vanguard 外面已经开着的 Claude 桌面版、Codex App、程小帮 App，经内置的 HUD 一对一传话；能进群的外部成员目前是程小帮。</span><span class="en">Claude, Codex and Chengxiaobang desktop apps already open outside Vanguard talk one‑to‑one through the built‑in HUD; for now Chengxiaobang is the outside member that can join a group.</span></p>
+  </div>
+</section>
+
+<!-- ======================= VG or SI ======================= -->
+<section id="hud" class="alt">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">两个产品，按需选</span><span class="en">Two products, your pick</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">只想要刘海上的 HUD？<br>SI Future HUD 一直都在。</span><span class="en">Just want the notch HUD?<br>SI Future HUD is still here.</span></h2>
+    <p class="sub reveal" style="--d:.14s"><span class="zh">Vanguard 是下一代综合体，HUD 是它的一部分。只想在刘海旁看额度、状态、审批，让助手们互相传话，装 SI Future HUD 就够了，它会继续维护。</span><span class="en">Vanguard is the next‑generation all‑in‑one, and the HUD is part of it. If all you want is quotas, live states, approvals and agent‑to‑agent messages by the notch, SI Future HUD is enough, and it stays maintained.</span></p>
+    <div class="choose">
+      <div class="prod reveal">
+        <div class="top"><img src="assets/icon.png?v=48508fb31b" alt=""><h3>Vanguard<small><span class="zh">带一支 AI 小队</span><span class="en">Lead a squad of AIs</span></small></h3></div>
+        <ul>
+          <li><span class="zh">工作区：终端和聊天，任选 agent</span><span class="en">Workspaces: terminal or chat, any agent</span></li>
+          <li><span class="zh">Bots 和群聊：@ 谁叫醒谁，互相接力</span><span class="en">Bots and groups that hand off work</span></li>
+          <li><span class="zh">换 agent 接着干、撤销一轮</span><span class="en">Hand off between agents, undo a turn</span></li>
+          <li><span class="zh">用量页、预算线、资源管理器</span><span class="en">Usage, budgets and a resource monitor</span></li>
+          <li><span class="zh">像素办公室</span><span class="en">The pixel office</span></li>
+          <li><span class="zh">内置 HUD：SI Future HUD 的刘海面板</span><span class="en">Built‑in HUD: the SI Future HUD notch panel</span></li>
+        </ul>
+        <p class="spec"><span class="zh">macOS 13.4 及以上 · Apple 芯片 · 版本 1.4.271</span><span class="en">macOS 13.4+ · Apple silicon · version 1.4.271</span></p>
+        <div class="actions"><a class="btn primary" href="Vanguard.dmg" download><span class="zh">下载 Vanguard</span><span class="en">Download Vanguard</span></a></div>
+      </div>
+      <div class="prod si reveal" style="--d:.1s">
+        <div class="top"><img src="assets/si-hud-logo.png?v=dc5a8d923b" alt="" style="border-radius:0"><h3>SI Future HUD<small><span class="zh">只要刘海上的余光</span><span class="en">Just the notch</span></small></h3></div>
+        <ul>
+          <li><span class="zh">额度、实时状态，悬停就看</span><span class="en">Quotas and live states on hover</span></li>
+          <li><span class="zh">在刘海上直接审批</span><span class="en">Approve right on the notch</span></li>
+          <li><span class="zh">助手之间互相传话，每条经你同意</span><span class="en">Agent‑to‑agent messages, each with your OK</span></li>
+          <li><span class="zh">借程小帮，让助手懂公司业务</span><span class="en">Company knowledge through Chengxiaobang</span></li>
+          <li><span class="zh">三种外观，任意屏幕边</span><span class="en">Three looks, any screen edge</span></li>
+        </ul>
+        <p class="spec"><span class="zh">macOS 12 及以上 · Apple 芯片 · 版本 0.1.7 · 45 MB</span><span class="en">macOS 12+ · Apple silicon · version 0.1.7 · 45 MB</span></p>
+        <div class="actions"><a class="btn ghost" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/"><span class="zh">去 SI Future HUD 官网 ↗</span><span class="en">Visit SI Future HUD ↗</span></a></div>
+      </div>
+    </div>
+    <div class="tablewrap reveal">
+      <table>
+        <thead><tr><th></th><th>Vanguard</th><th>SI Future HUD</th></tr></thead>
+        <tbody>
+          <tr><td><span class="zh">刘海上的额度和实时状态</span><span class="en">Quotas and live states on the notch</span></td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td><span class="zh">在刘海上审批</span><span class="en">Approvals on the notch</span></td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td><span class="zh">助手之间互相传话</span><span class="en">Agent‑to‑agent messages</span></td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td><span class="zh">工作区（终端和聊天）</span><span class="en">Workspaces (terminal and chat)</span></td><td class="ok">✓</td><td class="no">—</td></tr>
+          <tr><td><span class="zh">Bots、群聊和接力</span><span class="en">Bots, groups and handoffs</span></td><td class="ok">✓</td><td class="no">—</td></tr>
+          <tr><td><span class="zh">换 agent 接着干、撤销一轮</span><span class="en">Switch agents, undo a turn</span></td><td class="ok">✓</td><td class="no">—</td></tr>
+          <tr><td><span class="zh">用量页和预算提醒</span><span class="en">Usage page and budget alerts</span></td><td class="ok">✓</td><td class="no">—</td></tr>
+          <tr><td><span class="zh">像素办公室</span><span class="en">Pixel office</span></td><td class="ok">✓</td><td class="no">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note reveal"><span class="zh">两个可以装在同一台电脑上，各用各的数据目录。</span><span class="en">Both can live on the same Mac, each with its own data folder.</span></p>
+  </div>
+</section>
+
+<!-- ======================= install ======================= -->
+<section id="install">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">首次安装</span><span class="en">First install</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">三步装好。</span><span class="en">Three steps.</span></h2>
+    <p class="sub reveal" style="--d:.14s"><span class="zh">第一次打开，它会自己找到你电脑上的 agent。</span><span class="en">On first launch, it finds the agents on your Mac by itself.</span></p>
+    <div class="steps">
+      <div class="step reveal">
+        <h3><span class="zh">拖进「应用程序」</span><span class="en">Drag to Applications</span></h3>
+        <p><span class="zh">打开 DMG，把 Vanguard 拖进「应用程序」，再从那里打开。</span><span class="en">Open the DMG, drag Vanguard into Applications and open it from there.</span></p>
+      </div>
+      <div class="step reveal" style="--d:.1s">
+        <h3><span class="zh">放行一次</span><span class="en">Allow it once</span></h3>
+        <p><span class="zh">内部版本第一次会被 macOS 拦下：「系统设置 → 隐私与安全性」点「仍要打开」。提示「已损坏」时运行：</span><span class="en">It's an internal build, so macOS blocks the first launch: System Settings → Privacy &amp; Security → Open Anyway. If it says the app is damaged, run:</span></p>
+        <pre><code>xattr -dr com.apple.quarantine "/Applications/Vanguard.app"</code></pre>
+      </div>
+      <div class="step reveal" style="--d:.2s">
+        <h3><span class="zh">选聊天还是终端</span><span class="en">Chat or terminal</span></h3>
+        <p><span class="zh">首次打开只问一件事：agent 用聊天界面还是终端，两边都有实时预览，以后随时能切换。然后跟着 10 站导览走一遍。</span><span class="en">The first launch asks one thing: chat view or terminal, with a live preview of each, switchable later. Then a 10‑stop tour shows you around.</span></p>
+      </div>
+    </div>
+    <div class="panelbox split reveal">
+      <div>
+      <h3><span class="zh">第一次打开时，它会自动：</span><span class="en">On first launch it sets itself up:</span></h3>
+      <ul class="ticks">
+        <li><span class="zh">在命令行、桌面应用、配置目录三处找 agent，真握手体检，出问题直接给原因和按钮；</span><span class="en">looks for agents on the command line, in your apps and in config folders, really shakes hands with each, and shows the reason and a fix for anything wrong;</span></li>
+        <li><span class="zh">建好 Pilot、Codex、程小帮三个 Bot 和一个「小队」群；</span><span class="en">creates three Bots (Pilot, Codex, Chengxiaobang) and a “Squad” group;</span></li>
+        <li><span class="zh">问你要不要接上这些 agent：每一项都能展开，看清楚要改哪个配置文件，以后能在设置里撤销；</span><span class="en">asks before connecting them, with every item expandable to show which config file changes, and undoable later in Settings;</span></li>
+        <li><span class="zh">把 HUD 放到刘海上。HUD 内置在 Vanguard 里，随它启动和退出。</span><span class="en">puts the HUD on your notch. It's built in, and starts and quits with Vanguard.</span></li>
+      </ul>
+      </div>
+      <div class="pmedia"><video muted loop playsinline preload="none" poster="media/scan-poster.webp?v=2730416713" data-auto><source src="media/scan.mp4?v=2dcaaafbb3" type="video/mp4"></video></div>
+    </div>
+    <div class="onboard">
+      <h3 class="reveal"><span class="zh">装好之后，有人带你上手。</span><span class="en">After that, it shows you around.</span></h3>
+      <div class="trio">
+        <figure class="shot reveal"><div class="frame"><img loading="lazy" src="media/tour.webp?v=4cf0f17a94" alt=""></div><figcaption><b><span class="zh">10 站导览</span><span class="en">A 10‑stop tour</span></b><span class="zh">聚光圈住真实界面，一站一句话。</span><span class="en">A spotlight on the real interface, one line per stop.</span></figcaption></figure>
+        <figure class="shot reveal" style="--d:.08s"><div class="frame"><img loading="lazy" src="media/checklist.webp?v=aa44440e5b" alt=""></div><figcaption><b><span class="zh">入门清单 40 项</span><span class="en">A 40‑item checklist</span></b><span class="zh">6 组 40 项，做完自动打勾，每项都能“带我看看”。</span><span class="en">Six groups, 40 items, ticked as you go, each with “Show me”.</span></figcaption></figure>
+        <figure class="shot reveal" style="--d:.16s"><div class="frame"><img loading="lazy" src="media/whats-new.webp?v=bda275f930" alt=""></div><figcaption><b><span class="zh">更新后只问一次</span><span class="en">Asked once after updates</span></b><span class="zh">更新后问一次要不要看新功能，不看就不再打扰。</span><span class="en">After an update it asks once whether to see what's new, then leaves you alone.</span></figcaption></figure>
+      </div>
+    </div>
+    <div class="panelbox warn reveal">
+      <h3><span class="zh">⚠️ 用之前请先看这几条</span><span class="en">⚠️ Read this before your first day with it</span></h3>
+      <ul>
+        <li><span class="zh"><b>默认是“完全访问”。</b>agent 在 Vanguard 里改文件、跑命令，不会逐个问你。想逐个确认，在「设置 → agent」里把新会话的初始权限改成“请求批准”。</span><span class="en"><b>The default is Full access.</b> Agents edit files and run commands without asking each time. To confirm each step, set the initial permission for new sessions to Ask for approval in Settings → Agents.</span></li>
+        <li><span class="zh"><b>agent 要先装好、登录好。</b>Vanguard 只调你电脑上已经装的 agent；Claude Code、Codex 先在终端里登录一次。</span><span class="en"><b>Install and sign in to your agents first.</b> Vanguard only drives agents already on your Mac; sign in to Claude Code and Codex in a terminal once.</span></li>
+        <li><span class="zh"><b>token 记在各家自己的账号上。</b>和你直接用它们一样；页面上的花费是按本机记录估算的，不是账单。</span><span class="en"><b>Tokens bill to each agent's own account</b>, the same as using them directly; the costs shown are estimates from local records, not invoices.</span></li>
+        <li><span class="zh"><b>已经装了 SI Future HUD 也没关系。</b>两个可以同时装，各用各的数据目录。</span><span class="en"><b>Already have SI Future HUD?</b> Keep it. The two can be installed side by side, each with its own data folder.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= docs ======================= -->
+<section id="docs" class="alt">
+  <div class="wrap">
+    <div class="kicker reveal"><span class="zh">装好之后</span><span class="en">After installing</span></div>
+    <h2 class="reveal" style="--d:.08s"><span class="zh">想了解更多。</span><span class="en">Go deeper.</span></h2>
+    <div class="faq">
+      <details class="reveal">
+        <summary><span class="zh">和直接开几个窗口，有什么区别？</span><span class="en">How is this different from just opening a few windows?</span></summary>
+        <div class="ans"><span class="zh">agent 还是各家原装的，Vanguard 多出来的是调度和送对人：@ 谁就叫醒谁，Bot 之间能接力，没被叫到的下次自动补看；终端里的 agent 能互相发消息；所有“需要你”的事合成一份；所有 agent 的历史一处搜。</span><span class="en">The agents are the same ones you already use. What Vanguard adds is routing: mention a Bot to wake it, Bots hand off to each other, and one that wasn't called catches up next time; terminal agents can message each other; everything that needs you is one list; and every agent's history is searchable in one place.</span></div>
+      </details>
+      <details class="reveal">
+        <summary><span class="zh">会不会把我的代码、密钥发出去？</span><span class="en">Does it send my code or keys anywhere?</span></summary>
+        <div class="ans"><span class="zh">Vanguard 自己不调模型。代码只交给你本来就在用的 agent，和你直接用它一样。Vanguard 没有遥测，不经云端中转，也不自动更新；配对另一台电脑时，内容端到端加密、只走直连。</span><span class="en">Vanguard calls no model itself. Your code only goes to the agents you already use, just as if you used them directly. There's no telemetry, no cloud relay and no auto‑update; pairing with another Mac is end‑to‑end encrypted and direct only.</span></div>
+      </details>
+      <details class="reveal">
+        <summary><span class="zh">token 算谁的？</span><span class="en">Whose tokens does it use?</span></summary>
+        <div class="ans"><span class="zh">算各家 agent 自己登录的账号，和你直接用它一样。有多个账号时，可以在 Vanguard 里切换。页面上的花费，是按本机记录和单价表估出来的。</span><span class="en">Each agent's own signed‑in account, exactly as when you use it directly. With several accounts you can switch inside Vanguard. Costs shown are estimated from local records and a price table.</span></div>
+      </details>
+      <details class="reveal">
+        <summary><span class="zh">为什么不自己做模型、自己写 agent？</span><span class="en">Why not build its own model or agent?</span></summary>
+        <div class="ans"><span class="zh">Claude Code、Codex 这些 agent，本身就是各家最强、更新最快的执行器。Vanguard 直接用各家官方接口驱动它们，它们一升级，Vanguard 就跟着变强；Vanguard 只做它们各自做不了的事：把它们组成一支队伍。</span><span class="en">Agents like Claude Code and Codex are already the strongest, fastest‑moving executors their makers have. Vanguard drives them through official interfaces, so it gets better whenever they do, and spends its effort on the one thing none of them does alone: making them a team.</span></div>
+      </details>
+      <details class="reveal">
+        <summary><span class="zh">只想要刘海上的 HUD，可以吗？</span><span class="en">Can I have just the notch HUD?</span></summary>
+        <div class="ans"><span class="zh">可以。装 <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">SI Future HUD</a> 就行，它会继续维护。以后想带一支小队了，再装 Vanguard，两个能同时装。</span><span class="en">Yes. Install <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">SI Future HUD</a>; it stays maintained. When you want a whole squad, add Vanguard; the two can live side by side.</span></div>
+      </details>
+    </div>
+    <div class="links">
+      <a class="link reveal" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/"><b>SI Future HUD</b><span><span class="zh">只要刘海上的 HUD，从这里装。</span><span class="en">Just the notch HUD: install it here.</span></span></a>
+      <a class="link zh reveal" style="--d:.08s" href="http://git.dev.sh.ctripcorp.com/ckxu/si-future-hud/-/blob/main/docs/si-future-hud/GUIDE.zh-CN.md"><b>HUD 使用指南</b><span>刘海的外观、机器人状态、面板和审批，Vanguard 内置的 HUD 也一样。</span></a>
+      <a class="link en reveal" style="--d:.08s" href="http://git.dev.sh.ctripcorp.com/ckxu/si-future-hud/-/blob/main/docs/si-future-hud/GUIDE.md"><b>HUD user guide</b><span>Looks, bot states, the panel and approvals; the HUD inside Vanguard works the same.</span></a>
+      <a class="link reveal" style="--d:.16s" href="https://applink.feishu.cn/client/chat/open?openId=ou_5c3fc5cc96ab4b401bdfd37b36f91126"><b><span class="zh">反馈问题</span><span class="en">Report a problem</span></b><span><span class="zh">遇到问题或有想法，直接找许成凯。</span><span class="en">Hit a snag or have an idea? Message Chengkai Xu.</span></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <img class="reveal" src="assets/icon.png?v=48508fb31b" alt="">
+    <h2 class="reveal"><span class="zh">派活、拍板、看全局。<br><span class="grad">其余的，交给小队。</span></span><span class="en">Assign. Decide. Oversee.<br><span class="grad">Leave the rest to the squad.</span></span></h2>
+    <div class="actions reveal" style="--d:.15s">
+      <a class="btn primary" href="Vanguard.dmg" download><span class="zh">下载 Vanguard</span><span class="en">Download for Mac</span></a>
+      <a class="btn ghost" href="https://applink.larkenterprise.com/client/chat/chatter/add_by_link?link_token=a9cr48e3-45d7-4aa1-ac37-b3a2992a83b2"><span class="zh">加入讨论群 ↗</span><span class="en">Join the group ↗</span></a>
+    </div>
+    <p class="alt-path reveal" style="--d:.2s"><span class="zh">只想要刘海上的 HUD？<a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">去 SI Future HUD ↗</a></span><span class="en">Just want the notch HUD? <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">Go to SI Future HUD ↗</a></span></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><span class="zh">Vanguard 没有遥测，不经云端中转，也不自动更新；会话、记忆和设置都存在你的电脑上。动图和截图均为演示数据。</span><span class="en">No telemetry, no cloud relay, no auto‑update: sessions, memory and settings stay on your Mac. Clips and screenshots use sample data.</span></div>
+    <div><span class="zh">作者 <a href="https://applink.feishu.cn/client/chat/open?openId=ou_5c3fc5cc96ab4b401bdfd37b36f91126">许成凯</a> · 同门产品 <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">SI Future HUD ↗</a> · <a href="https://applink.larkenterprise.com/client/chat/chatter/add_by_link?link_token=a9cr48e3-45d7-4aa1-ac37-b3a2992a83b2">讨论群</a></span><span class="en">By <a href="https://applink.feishu.cn/client/chat/open?openId=ou_5c3fc5cc96ab4b401bdfd37b36f91126">Chengkai Xu</a> · sister product <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">SI Future HUD ↗</a> · <a href="https://applink.larkenterprise.com/client/chat/chatter/add_by_link?link_token=a9cr48e3-45d7-4aa1-ac37-b3a2992a83b2">group chat</a></span></div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var ease = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+
+  /* ---- language ---- */
+  var titles = { zh: "Vanguard · 从使用 AI，到带领 AI", en: "Vanguard · From using AI to leading it" };
+  function stored() { try { return localStorage.getItem("vanguard-site-lang"); } catch (e) { return null; } }
+  function remember(l) { try { localStorage.setItem("vanguard-site-lang", l); } catch (e) {} }
+  function setLang(l) {
+    root.setAttribute("data-lang", l);
+    root.setAttribute("lang", l === "zh" ? "zh-CN" : "en");
+    document.title = titles[l];
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === l)); });
+    update();
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-set-lang]");
+    if (b) { setLang(b.getAttribute("data-set-lang")); remember(b.getAttribute("data-set-lang")); }
+  });
+
+  /* ---- statement: one span per character (CJK) or word ---- */
+  document.querySelectorAll("[data-words]").forEach(function (p) {
+    var text = p.textContent, cjk = /[㐀-鿿]/.test(text);
+    var parts = cjk ? Array.from(text) : text.split(/(\s+)/);
+    var hot = cjk ? /[一支队伍派活拍板看全局]/ : /^(team\.|assign,|decide|oversee\.)$/;
+    var after = cjk ? text.indexOf("现在") : text.indexOf("Now");
+    var pos = 0;
+    p.textContent = "";
+    parts.forEach(function (t) {
+      var at = pos; pos += t.length;
+      if (/^\s+$/.test(t)) { p.appendChild(document.createTextNode(t)); return; }
+      var s = document.createElement("span");
+      s.className = "w" + (at > after && hot.test(t) ? " hot" : "");
+      s.textContent = t; p.appendChild(s);
+    });
+  });
+
+  /* ---- reveals and counters ---- */
+  function count(el) {
+    var target = +el.getAttribute("data-count"), t0 = null;
+    if (reduce) { el.textContent = target; return; }
+    function step(ts) { if (!t0) t0 = ts; var k = clamp((ts - t0) / 1400, 0, 1); el.textContent = Math.round(target * ease(k)); if (k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("in");
+      e.target.querySelectorAll && e.target.querySelectorAll("[data-count]").forEach(count);
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  /* ---- clips: play while on screen ---- */
+  var clips = document.querySelectorAll("video[data-auto]");
+  var vio = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting && e.intersectionRatio >= 0.3) {
+        if (v.preload !== "auto") { v.preload = "auto"; }
+        if (!reduce) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      } else if (!v.paused) v.pause();
+    });
+  }, { threshold: [0, 0.3] });
+  clips.forEach(function (v) { if (reduce) v.setAttribute("controls", ""); vio.observe(v); });
+
+  /* ---- overview pins and legend highlight each other ---- */
+  function hl(n, on) { document.querySelectorAll('[data-pin="' + n + '"]').forEach(function (el) { el.classList.toggle("hl", on); }); }
+  document.querySelectorAll("[data-pin]").forEach(function (el) {
+    var n = el.getAttribute("data-pin");
+    el.addEventListener("mouseenter", function () { hl(n, true); });
+    el.addEventListener("mouseleave", function () { hl(n, false); });
+    el.addEventListener("focus", function () { hl(n, true); });
+    el.addEventListener("blur", function () { hl(n, false); });
+  });
+
+  /* ---- lightbox for stills ---- */
+  var lb = document.getElementById("lightbox"), lbImg = lb.querySelector("img");
+  document.addEventListener("click", function (e) {
+    var img = e.target.closest && e.target.closest(".card .media img, .shot img, .tile .media img");
+    if (img) { lbImg.src = img.currentSrc || img.src; lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); return; }
+    if (e.target.closest && e.target.closest("#lightbox")) { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); }
+  });
+  addEventListener("keydown", function (e) { if (e.key === "Escape") { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); } });
+
+  /* ---- scroll-linked scenes ---- */
+  var bar = document.querySelector(".bar"), progress = document.querySelector(".progress");
+  var scene = document.getElementById("scene"), stage = document.getElementById("sceneStage"), heroEl = document.getElementById("intro");
+  /* the tag's signal tears now and then: a jolt, a colour split, sometimes twice in a row */
+  (function () {
+    var tag = document.querySelector(".sc-tag");
+    if (!tag || reduce) return;
+    function hit(v2) {
+      tag.classList.remove("glitch", "v2"); void tag.offsetWidth;
+      tag.style.setProperty("--gj", ((Math.random() < 0.5 ? -1 : 1) * (3 + Math.random() * 6)).toFixed(1) + "px");
+      tag.classList.add("glitch"); if (v2) tag.classList.add("v2");
+      setTimeout(function () { tag.classList.remove("glitch", "v2"); }, v2 ? 440 : 360);
+    }
+    function loop() {
+      if (tag.getBoundingClientRect().bottom > 0 && !document.hidden) {
+        var v2 = Math.random() < 0.4; hit(v2);
+        if (Math.random() < 0.2) setTimeout(function () { hit(!v2); }, (v2 ? 460 : 380) + Math.random() * 160);
+      }
+      setTimeout(loop, 5000 + Math.random() * 6000);
+    }
+    setTimeout(loop, 3400);
+  })();
+  /* living mist at the seam: domain-warped noise that rolls, curls and drifts on the wind */
+  (function () {
+    var veil = document.querySelector(".veil"), cv = document.getElementById("veilGl");
+    var gl = cv && cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false });
+    if (!gl) return;
+    var vs = "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
+    var fs = [
+      "precision mediump float;uniform vec2 uR;uniform float uT;",
+      "float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}",
+      "float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);",
+      " return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}",
+      "const mat2 M=mat2(1.6,1.2,-1.2,1.6);",
+      "float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<5;i++){s+=a*n(p);p=M*p;a*=.5;}return s;}",
+      "void main(){",
+      " vec2 uv=gl_FragCoord.xy/uR;float y=1.-uv.y;",                 // y: 0 at the top of the seam, 1 at the bottom
+      " vec2 p=vec2(uv.x*uR.x/uR.y,y)*1.7;float t=uT;",
+      " vec2 q=vec2(fbm(p*.8+vec2(t*.045,0.)),fbm(p*.8+vec2(5.2,1.3)-vec2(t*.03,t*.012)));",
+      " vec2 r=vec2(fbm(p+1.9*q+vec2(1.7,9.2)+vec2(t*.07,0.)),fbm(p+1.9*q+vec2(8.3,2.8)+vec2(t*.055,-t*.01)));",
+      " float f=fbm(p+2.2*r+vec2(t*.06,0.));",
+      " float edge=.28+(f-.5)*.7;",                                   // the billowing top of the fog bank
+      " float bank=smoothstep(edge-.12,edge+.34,y);",
+      " float wisp=smoothstep(.52,.86,fbm(p*vec2(.55,1.9)+vec2(t*.1,0.)+2.6*r))*smoothstep(.04,.42,y)*(1.-bank);",
+      " float a=clamp(bank*(.5+.65*f)+wisp*.42,0.,.96);",
+      " vec3 tint=mix(vec3(1.,.83,.94),vec3(1.,.985,.995),smoothstep(.15,.85,y));",   // lit pink by the hologram above, white below
+      " vec3 c=tint*(.88+.16*f+.06*length(r-q));",
+      " gl_FragColor=vec4(min(c,1.)*a,a);}"
+    ].join("\n");
+    function sh(type, src) { var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null; }
+    var v = sh(gl.VERTEX_SHADER, vs), f = sh(gl.FRAGMENT_SHADER, fs);
+    if (!v || !f) return;
+    var pr = gl.createProgram(); gl.attachShader(pr, v); gl.attachShader(pr, f); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    gl.useProgram(pr);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, "a"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uR = gl.getUniformLocation(pr, "uR"), uT = gl.getUniformLocation(pr, "uT");
+    veil.classList.add("gl");
+    var scale = 0.5, on = false, raf = 0, t0 = performance.now() - 40000 * Math.random();
+    function size() {
+      var w = Math.max(2, Math.round(cv.clientWidth * scale)), h = Math.max(2, Math.round(cv.clientHeight * scale));
+      if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
+      gl.uniform2f(uR, w, h);
+    }
+    function draw(now) {
+      size(); gl.uniform1f(uT, (now - t0) / 1000);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (on && !reduce) raf = requestAnimationFrame(draw);
+    }
+    function set(v) { if (v === on) return; on = v; cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(draw); }
+    new IntersectionObserver(function (es) { set(es[0].isIntersecting && !document.hidden); }).observe(veil);
+    document.addEventListener("visibilitychange", function () { set(!document.hidden && veil.getBoundingClientRect().top < innerHeight); });
+    addEventListener("resize", function () { if (!on) draw(performance.now()); });
+    draw(performance.now());
+  })();
+  /* opening geometry: at load the intro's fog just touches the bottom of the scene; scrolling raises it
+     over the pinned scene until the whole headline is on screen, then the pin lets go */
+  var opening = document.getElementById("opening"), pinD = 0, introTop = 0;
+  (function () {
+    var h1 = heroEl.querySelector("h1");
+    function fit() {
+      var vh = innerHeight, H = scene.offsetHeight, peek = Math.round(Math.min(90, vh * 0.1));
+      var need = h1.getBoundingClientRect().bottom - heroEl.getBoundingClientRect().top + 36;   // hero top -> under the headline
+      introTop = Math.max(Math.round(vh * 0.4), Math.round(vh - need));                          // where the intro stops rising
+      pinD = Math.max(0, H - peek - introTop);
+      opening.style.height = (H + pinD) + "px";
+      heroEl.style.marginTop = (-(pinD + peek)) + "px";
+      scene.style.setProperty("--tagB", (introTop - 8) + "px");
+      requestAnimationFrame(update);
+    }
+    fit(); if (window.ResizeObserver) new ResizeObserver(fit).observe(h1); addEventListener("resize", fit);
+  })();
+  var heroCopy = document.querySelector(".hero-copy"), film = document.getElementById("film");
+  var statement = document.querySelector(".statement");
+  var connect = document.getElementById("connect");
+  var lits = document.querySelectorAll("#lits path"), nodes = document.querySelectorAll(".hub .node");
+  var spark = document.getElementById("spark"), core = document.getElementById("core");
+  var steps = document.querySelectorAll(".caption [data-step]");
+  var lens = Array.prototype.map.call(lits, function (p) { return p.getTotalLength(); });
+  lits.forEach(function (p, i) { p.style.strokeDasharray = lens[i] + " " + lens[i]; p.style.strokeDashoffset = lens[i]; });
+  var lastY = 0, filmVisibility = function () {};
+
+  function sectionProgress(el) {
+    var r = el.getBoundingClientRect(), total = r.height - innerHeight;
+    return total > 0 ? clamp(-r.top / total, 0, 1) : 0;
+  }
+  function update() {
+    var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+    progress.style.setProperty("--read", h > 0 ? y / h : 0);
+    var sceneH = scene.offsetHeight;
+    bar.classList.toggle("solid", y > 30);
+    bar.classList.toggle("on-dark", y < pinD + introTop - 60);
+    bar.classList.toggle("hide", y > lastY && y > sceneH + innerHeight * 0.6);
+    lastY = y;
+    filmVisibility();
+    if (reduce) return;
+
+    // scene: the camera pushes in and the frame dims as you leave it
+    var ks = clamp(y / sceneH, 0, 1);
+    stage.style.setProperty("--s", (1.03 + 0.07 * ks).toFixed(4));
+    stage.style.setProperty("--b", (1 - 0.25 * clamp((y - pinD) / sceneH, 0, 1)).toFixed(3));
+    scene.style.setProperty("--co", String(clamp(1 - (y - pinD) / (sceneH * 0.3), 0, 1)));
+    scene.style.setProperty("--cy", (-40 * ks).toFixed(1) + "px");
+
+    // hero: copy lifts and fades, the film comes forward
+    var k = clamp((y - heroEl.offsetTop + 60) / innerHeight, 0, 1);
+    heroCopy.style.transform = "translateY(" + (-k * 90) + "px)";
+    heroCopy.style.opacity = String(1 - k * 1.1);
+    film.style.transform = "scale(" + (0.94 + 0.06 * clamp(k * 1.5, 0, 1)) + ")";
+
+    // statement: words light up one after another
+    var s = sectionProgress(statement);
+    statement.querySelectorAll("p").forEach(function (p) {
+      if (getComputedStyle(p).display === "none") return;
+      var words = p.querySelectorAll(".w"), lit = Math.round(clamp((s - 0.06) / 0.78, 0, 1) * words.length);
+      words.forEach(function (w, i) { w.classList.toggle("lit", i < lit); });
+    });
+
+    // switchboard: one line per step, then all five
+    var f = sectionProgress(connect), seg = 0.16, step = Math.min(5, Math.floor(f / seg));
+    lits.forEach(function (p, i) {
+      var t = clamp((f - i * seg) / (seg * 0.7), 0, 1);
+      p.style.strokeDashoffset = lens[i] * (1 - ease(t));
+      nodes[i].classList.toggle("on", step === i || step === 5);
+    });
+    if (step < 5) {
+      var t = clamp((f - step * seg) / (seg * 0.7), 0, 1);
+      if (t > 0 && t < 1) { var pt = lits[step].getPointAtLength(lens[step] * ease(t)); spark.setAttribute("cx", pt.x); spark.setAttribute("cy", pt.y); spark.setAttribute("opacity", "1"); }
+      else spark.setAttribute("opacity", "0");
+    } else spark.setAttribute("opacity", "0");
+    core.classList.toggle("pulse", step === 5);
+    steps.forEach(function (el) { el.classList.toggle("on", +el.getAttribute("data-step") === step); });
+  }
+  var ticking = false;
+  addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); } }, { passive: true });
+  addEventListener("resize", update);
+
+  /* ---- hero film: muted autoplay while on screen ---- */
+  var video = document.getElementById("filmVideo"), filmBar = film.querySelector(".film-bar i");
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var userPaused = reduce || saveData;
+  var heardOnce = false;
+  function syncFilm() { film.classList.toggle("paused", video.paused); film.classList.toggle("muted", video.muted); }
+  ["play", "pause", "volumechange"].forEach(function (e) { video.addEventListener(e, syncFilm); });
+  video.addEventListener("timeupdate", function () { filmBar.style.width = (video.duration ? video.currentTime / video.duration * 100 : 0) + "%"; });
+  function play() { var p = video.play(); if (p && p.catch) p.catch(function () { syncFilm(); }); }
+  filmVisibility = function () {
+    var r = video.getBoundingClientRect();
+    var shown = r.height ? (Math.min(innerHeight, r.bottom) - Math.max(0, r.top)) / r.height : 0;
+    if (shown >= 0.15) { if (video.paused && !userPaused) play(); }
+    else if (shown < 0.05 && !video.paused) video.pause();
+  };
+  film.querySelector(".film-frame").addEventListener("animationend", filmVisibility);
+  function toggle() { if (video.paused) { userPaused = false; play(); } else { userPaused = true; video.pause(); } }
+  video.addEventListener("click", toggle);
+  document.getElementById("filmPlay").addEventListener("click", toggle);
+  document.getElementById("filmSound").addEventListener("click", function () {
+    if (video.muted) {
+      video.muted = false;
+      if (!heardOnce) { heardOnce = true; video.currentTime = 0; }   // the first time with sound, from the start
+      userPaused = false; play();
+    } else video.muted = true;
+  });
+  document.getElementById("filmFull").addEventListener("click", function () {
+    if (video.requestFullscreen) video.requestFullscreen();
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+  });
+  syncFilm();
+
+
+  /* ---- cinematic scene: rain, dust, bokeh, parallax, hologram glitches ---- */
+  (function () {
+    var cv = document.getElementById("sceneFx"), ctx = cv.getContext("2d"), glitch = document.getElementById("scGlitch");
+    var W = 0, H = 0, dpr = 1, drops = [], motes = [], bokeh = [], running = false, last = 0, visible = true;
+    function rnd(a, b) { return a + Math.random() * (b - a); }
+    function tint(x, a) { return x < 0.62 ? "rgba(255," + Math.round(120 + 60 * x) + ",215," + a + ")" : "rgba(150,205,240," + a + ")"; }
+    function resize() {
+      var r = cv.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = Math.max(1, r.width); H = Math.max(1, r.height);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var area = W * H / (1440 * 600);
+      drops = []; motes = []; bokeh = [];
+      for (var i = 0; i < Math.round(240 * area); i++) {
+        var z = Math.random();
+        drops.push({ x: Math.random(), y: Math.random(), z: z, len: 7 + z * 17, v: 0.55 + z * 0.75, a: 0.05 + z * 0.17 });
+      }
+      for (var j = 0; j < Math.round(110 * area); j++) {
+        motes.push({ x: Math.random(), y: Math.random(), r: rnd(0.5, 1.7), vx: rnd(0.002, 0.010), vy: rnd(-0.010, -0.002), ph: Math.random() * 6.28, sp: rnd(0.6, 1.6) });
+      }
+      for (var k2 = 0; k2 < 7; k2++) {
+        bokeh.push({ x: Math.random(), y: rnd(0.55, 1), r: rnd(10, 28), vx: rnd(-0.004, 0.004), a: rnd(0.04, 0.10), ph: Math.random() * 6.28 });
+      }
+    }
+    /* the beacon swings back and forth like a searchlight; a 3-D turn seen from the bridge:
+       side-on it is a long beam, turned toward us it shortens and flares, turned away it fades */
+    var bcRay = document.querySelector(".bc-ray"), bcHalo = document.querySelector(".bc-halo");
+    var flGlow = document.querySelector(".fl-glow"), flStreak = document.querySelector(".fl-streak"), flLamp = document.querySelector(".fl-lamp");
+    var bcW = 0, bcL = 1, bcS = 1, stageEl = document.getElementById("sceneStage");
+    function beacon(t) {
+      var sw = stageEl.clientWidth;
+      if (sw !== bcW) {
+        bcW = sw; bcL = 0.46 * sw; bcS = 0.045 * sw;
+        [bcRay, bcHalo].forEach(function (el, i) { el.style.width = bcL + "px"; var k = i ? 2.6 : 1; el.style.height = bcS * k + "px"; el.style.top = (-bcS * k / 2) + "px"; });
+      }
+      var phi = (-32 + 88 * Math.sin(t / 1000 * 6.2832 / 12)) * Math.PI / 180;
+      var sx = Math.sin(phi), cz = Math.cos(phi), toward = Math.max(0, cz);
+      // the lamp turns in a plane tilted 16 degrees down: side-on it rakes down across the night, toward us it points at the street
+      var beta = 16 * Math.PI / 180, dx = sx * Math.cos(beta), dy = Math.sin(beta) * (1 + 0.6 * cz);
+      var len = (Math.sqrt(dx * dx + dy * dy) * (1 + 0.3 * toward) + 0.02) / 1.3;
+      var ang = Math.atan2(dy, dx) * 180 / Math.PI;
+      var spread = (1 + toward) * (0.55 + 0.45 * Math.abs(sx));
+      var op = Math.min(1, 0.5 + 0.3 * (1 - Math.abs(cz)) + 0.4 * toward * toward) * (cz < 0 ? 1 + 0.45 * cz : 1);
+      var tf = "rotate(" + ang.toFixed(2) + "deg) scale(" + len.toFixed(3) + "," + spread.toFixed(3) + ")";
+      bcRay.style.transform = tf; bcRay.style.opacity = op.toFixed(3);
+      bcHalo.style.transform = tf; bcHalo.style.opacity = (op * 0.45).toFixed(3);
+      var fl = Math.max(0, (cz - 0.8) / 0.2); fl = fl * fl * (3 - 2 * fl);
+      flGlow.style.opacity = (fl * 0.95).toFixed(3); flStreak.style.opacity = (fl * 0.9).toFixed(3);
+      flLamp.style.opacity = (0.55 + 0.45 * toward).toFixed(3);
+    }
+    function frame(t) {
+      if (!running) return;
+      beacon(t);
+      var dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
+      ctx.clearRect(0, 0, W, H);
+      // rain: near drops longer, brighter, faster; a slight slant like the plate
+      ctx.lineCap = "round";
+      for (var i = 0; i < drops.length; i++) {
+        var d = drops[i];
+        d.y += d.v * dt * 1.35; d.x += d.v * dt * 0.06;
+        if (d.y > 1.05) { d.y = -0.05; d.x = Math.random(); }
+        if (d.x > 1.02) d.x = -0.02;
+        var x = d.x * W, y = d.y * H, fade = d.y < 0.6 ? 1 : 1 - (d.y - 0.6) / 0.28;   // rain thins out where the mist rises
+        if (fade <= 0) continue;
+        ctx.strokeStyle = tint(d.x, (d.a * fade).toFixed(3));
+        ctx.lineWidth = 0.5 + d.z * 0.7;
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + d.len * 0.07, y + d.len); ctx.stroke();
+      }
+      // luminous dust drifting in the light
+      for (var j = 0; j < motes.length; j++) {
+        var m = motes[j];
+        m.x += m.vx * dt; m.y += m.vy * dt + Math.sin(t / 1000 * m.sp + m.ph) * 0.0004;
+        if (m.x > 1.02) m.x = -0.02; if (m.y < -0.02) m.y = 1.02;
+        var tw = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t / 1000 * m.sp * 2 + m.ph));
+        ctx.fillStyle = tint(m.x, (0.55 * tw).toFixed(3));
+        ctx.beginPath(); ctx.arc(m.x * W, m.y * H, m.r, 0, 6.283); ctx.fill();
+      }
+      // a few soft out-of-focus specks in the foreground
+      for (var b = 0; b < bokeh.length; b++) {
+        var o = bokeh[b];
+        o.x += o.vx * dt; if (o.x > 1.05) o.x = -0.05; if (o.x < -0.05) o.x = 1.05;
+        var al = o.a * (0.6 + 0.4 * Math.sin(t / 1000 * 0.7 + o.ph));
+        var g = ctx.createRadialGradient(o.x * W, o.y * H, 0, o.x * W, o.y * H, o.r);
+        g.addColorStop(0, tint(o.x, al.toFixed(3))); g.addColorStop(1, tint(o.x, "0"));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(o.x * W, o.y * H, o.r, 0, 6.283); ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    beacon(4500);
+    function start() { if (running || reduce) return; running = true; last = 0; requestAnimationFrame(frame); }
+    function stop() { running = false; }
+    resize();
+    addEventListener("resize", resize);
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; visible && !document.hidden ? start() : stop(); }, { threshold: 0 }).observe(scene);
+    document.addEventListener("visibilitychange", function () { document.hidden ? stop() : (visible && start()); });
+    // parallax: the plate barely moves, the hand more, the rain the most
+    var tx = 0, ty = 0, cx = 0, cy = 0;
+    scene.addEventListener("pointermove", function (e) {
+      var r = scene.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2; ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    });
+    scene.addEventListener("pointerleave", function () { tx = 0; ty = 0; });
+    (function ease() {
+      cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+      if (!reduce) {
+        stage.style.setProperty("--px", (-cx * 10).toFixed(2) + "px"); stage.style.setProperty("--py", (-cy * 6).toFixed(2) + "px");
+        stage.style.setProperty("--hx", (-cx * 14).toFixed(2) + "px"); stage.style.setProperty("--hy", (-cy * 9).toFixed(2) + "px");
+        stage.style.setProperty("--fx", (-cx * 22).toFixed(2) + "px"); stage.style.setProperty("--fy", (-cy * 12).toFixed(2) + "px");
+      }
+      requestAnimationFrame(ease);
+    })();
+    // now and then the hologram glitches: one thin band slips sideways for a moment
+    function glitchOnce() {
+      if (!reduce && visible && !document.hidden) {
+        var top = rnd(8, 70), h = rnd(1.5, 5), dx = rnd(-14, 14);
+        glitch.style.clipPath = "inset(" + top.toFixed(1) + "% 0 " + (100 - top - h).toFixed(1) + "% 0)";
+        glitch.style.transform = "translateX(" + dx.toFixed(1) + "px)";
+        glitch.classList.add("on");
+        setTimeout(function () { glitch.classList.remove("on"); }, 90 + Math.random() * 90);
+      }
+      setTimeout(glitchOnce, 4200 + Math.random() * 5200);
+    }
+    setTimeout(glitchOnce, 3800);
+  })();
+
+  /* ---- the intro under the scene animates when it arrives ---- */
+  new IntersectionObserver(function (es, ob) { es.forEach(function (e) { if (e.isIntersecting) { heroEl.classList.add("go"); ob.unobserve(e.target); } }); }, { threshold: 0.12 }).observe(heroEl.querySelector("h1"));
+
+  setLang(stored() || ((navigator.language || "zh").toLowerCase().indexOf("zh") === 0 ? "zh" : "en"));
+  if (reduce) {
+    lits.forEach(function (p) { p.style.strokeDashoffset = 0; });
+    steps.forEach(function (el, i) { el.classList.toggle("on", i === 5); });
+    nodes.forEach(function (n) { n.classList.add("on"); });
+  }
+})();
+</script>
+</body>
+</html>
