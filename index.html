@@ -2,14 +2,12 @@
 <html lang="zh-CN" data-lang="zh">
 <head>
 <meta charset="utf-8">
-<meta name="vg-build" content="94f387c-11270519">
-<script>/* newest build or nothing: a cached old page moves itself to the current one */(function(){var b="94f387c-11270519";try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.build||j.build===b)return;var u=new URL(location.href);if(u.searchParams.get("v")===j.build)return;u.searchParams.set("v",j.build);location.replace(u.toString())}).catch(function(){})}catch(e){}})();</script>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="214fd6df-630b-4728-b7d7-90652f772c7f" data-domains="chengkaixu123.github.io"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="214fd6df-630b-4728-b7d7-90652f772c7f" data-domains="pages.release.ctripcorp.com"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vanguard · 从使用 AI，到带领 AI</title>
 <meta name="description" content="Vanguard：一个应用，管好你所有的 agent。派活、拍板、看全局。">
-<link rel="icon" type="image/png" href="assets/favicon.png?v=49631d6d77">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=029d75b514">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <!--
   Vanguard site. Same page flow as the SI Future HUD site (hero, statement,
   numbers, features, bots, connect, one more thing, agents, install, docs,
@@ -143,8 +141,8 @@ html[data-lang="en"] .hero h1{font-size:clamp(44px,7.6vw,96px);letter-spacing:-.
   filter:brightness(var(--b,1));will-change:transform,filter;overflow:hidden;background:#05070b}
 .scene-stage>*{position:absolute;inset:0;width:100%;height:100%}
 .sc-base img{width:100%;height:100%;object-fit:cover;display:block}
-.sc-holo,.sc-scan,.sc-glitch{-webkit-mask:url(media/hero/holo-mask.png?v=ef3c10dbb9) center/100% 100% no-repeat;mask:url(media/hero/holo-mask.png?v=ef3c10dbb9) center/100% 100% no-repeat;mix-blend-mode:screen;pointer-events:none}
-.sc-holo{background:url(media/hero/base.webp?v=65a1ee61c9) center/100% 100%;opacity:.05;animation:scBreathe 5.5s ease-in-out infinite}
+.sc-holo,.sc-scan,.sc-glitch{-webkit-mask:url(media/hero/holo-mask.png) center/100% 100% no-repeat;mask:url(media/hero/holo-mask.png) center/100% 100% no-repeat;mix-blend-mode:screen;pointer-events:none}
+.sc-holo{background:url(media/hero/base.webp) center/100% 100%;opacity:.05;animation:scBreathe 5.5s ease-in-out infinite}
 @keyframes scBreathe{0%,100%{opacity:.04}50%{opacity:.30}}
 .sc-scan{background:
   linear-gradient(to bottom,rgba(255,170,235,0) 0%,rgba(255,170,235,0) 44%,rgba(255,190,240,.20) 50%,rgba(255,170,235,0) 56%,rgba(255,170,235,0) 100%) 0 0/100% 320% no-repeat,
@@ -152,7 +150,7 @@ html[data-lang="en"] .hero h1{font-size:clamp(44px,7.6vw,96px);letter-spacing:-.
   animation:scSweep 7.5s linear infinite,scLines 2.4s linear infinite}
 @keyframes scSweep{0%{background-position:0 100%,0 0}100%{background-position:0 0%,0 0}}
 @keyframes scLines{to{background-position:0 0,0 36px}}
-.sc-glitch{background:url(media/hero/base.webp?v=65a1ee61c9) center/100% 100%;opacity:0}
+.sc-glitch{background:url(media/hero/base.webp) center/100% 100%;opacity:0}
 .sc-glitch.on{opacity:.9}
 .sc-hem{pointer-events:none}
 .sc-handwrap{transform:translate3d(var(--hx,0px),var(--hy,0px),0);pointer-events:none}
@@ -233,8 +231,8 @@ html[data-lang="en"] .hero h1{font-size:clamp(44px,7.6vw,96px);letter-spacing:-.
   -webkit-mask:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 22%,#000 45%);mask:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.6) 22%,#000 45%)}
 .veil i{position:absolute;left:0;top:0;width:200%;height:100%;background-repeat:repeat-x;background-size:50% 100%;will-change:transform;
   -webkit-mask:linear-gradient(to bottom,transparent 0,#000 28%,#000 62%,transparent 100%);mask:linear-gradient(to bottom,transparent 0,#000 28%,#000 62%,transparent 100%)}
-.veil .m1{background-image:url(media/hero/mist-a.webp?v=ea8f6ae8b7);opacity:.8;animation:mistDrift 64s linear infinite,mistBreath 11s ease-in-out infinite alternate}
-.veil .m2{top:10%;height:90%;background-image:url(media/hero/mist-b.webp?v=6ee1f8089e);opacity:.65;animation:mistDrift 41s linear infinite reverse,mistBreath 7s ease-in-out -3s infinite alternate}
+.veil .m1{background-image:url(media/hero/mist-a.webp);opacity:.8;animation:mistDrift 64s linear infinite,mistBreath 11s ease-in-out infinite alternate}
+.veil .m2{top:10%;height:90%;background-image:url(media/hero/mist-b.webp);opacity:.65;animation:mistDrift 41s linear infinite reverse,mistBreath 7s ease-in-out -3s infinite alternate}
 .veil-gl{position:absolute;left:0;top:0;width:100%;height:100%;display:none}
 .veil.gl .veil-gl{display:block}
 .veil.gl i{display:none}
@@ -536,7 +534,7 @@ footer a{color:var(--ink2)}
 
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href="#top"><img src="assets/icon.png?v=48508fb31b" alt="">Vanguard</a>
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="">Vanguard</a>
     <nav>
       <a href="#features"><span class="zh">功能</span><span class="en">Features</span></a>
       <a href="#connect"><span class="zh">打通</span><span class="en">Connect</span></a>
@@ -545,12 +543,12 @@ footer a{color:var(--ink2)}
       <a href="#docs"><span class="zh">文档</span><span class="en">Docs</span></a>
     </nav>
     <div class="right">
-      <a class="sibling" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/" title="SI Future HUD"><img src="assets/si-hud-logo.png?v=dc5a8d923b" alt=""><span class="full"><span class="zh">只要 HUD</span><span class="en">Just the HUD</span></span> ↗</a>
+      <a class="sibling" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/" title="SI Future HUD"><img src="assets/si-hud-logo.png" alt=""><span class="full"><span class="zh">只要 HUD</span><span class="en">Just the HUD</span></span> ↗</a>
       <div class="lang" role="group" aria-label="Language / 语言">
         <button type="button" data-set-lang="zh" aria-pressed="true">中文</button>
         <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a class="get" href="https://artifactory.release.ctripcorp.com/artifactory/trip-generic-prod-shanghai/vanguard/latest/Vanguard.dmg" download data-umami-event="下载 Vanguard" data-umami-event-position="nav"><span class="zh">下载</span><span class="en">Download</span></a>
+      <a class="get" href="https://trip.larkenterprise.com/file/Ui1Ub6dmYordYTxt8zyccyDknrb" target="_blank" rel="noopener" data-umami-event="下载 Vanguard" data-umami-event-position="nav"><span class="zh">下载</span><span class="en">Download</span></a>
     </div>
   </div>
 </header>
@@ -562,10 +560,10 @@ footer a{color:var(--ink2)}
   <div class="scene-mask">
   <div class="scene-stage" id="sceneStage">
     <picture class="sc-base">
-      <source media="(max-aspect-ratio: 4/5)" srcset="media/hero/base-portrait.webp?v=15350bb932">
-      <img src="media/hero/base.webp?v=65a1ee61c9" alt="雨夜的天桥上，巨型粉色全息果冻俯视着一个仰头的人 / A giant pink hologram looks down at a man on a rainy walkway">
+      <source media="(max-aspect-ratio: 4/5)" srcset="media/hero/base-portrait.webp">
+      <img src="media/hero/base.webp" alt="雨夜的天桥上，巨型粉色全息果冻俯视着一个仰头的人 / A giant pink hologram looks down at a man on a rainy walkway">
     </picture>
-    <div class="sc-beacon" aria-hidden="true"><div class="bc-pivot"><img class="bc-halo" src="media/hero/beam.webp?v=2edc65b489" alt=""><img class="bc-ray" src="media/hero/beam.webp?v=2edc65b489" alt=""></div></div>
+    <div class="sc-beacon" aria-hidden="true"><div class="bc-pivot"><img class="bc-halo" src="media/hero/beam.webp" alt=""><img class="bc-ray" src="media/hero/beam.webp" alt=""></div></div>
     <div class="sc-holo"></div>
     <div class="sc-scan"></div>
     <div class="sc-glitch" id="scGlitch"></div>
@@ -586,9 +584,9 @@ footer a{color:var(--ink2)}
           <rect x="1912" y="740" width="168" height="128" rx="18" fill="url(#scHemFade)"/>
         </mask>
       </defs>
-      <image href="media/hero/base.webp?v=65a1ee61c9" x="0" y="0" width="2560" height="1071" filter="url(#scFlutter)" mask="url(#scHemMask)"/>
+      <image href="media/hero/base.webp" x="0" y="0" width="2560" height="1071" filter="url(#scFlutter)" mask="url(#scHemMask)"/>
     </svg>
-    <div class="sc-handwrap"><img class="sc-hand" src="media/hero/hand.png?v=808eb20e89" alt=""></div>
+    <div class="sc-handwrap"><img class="sc-hand" src="media/hero/hand.png" alt=""></div>
     <div class="sc-flare" aria-hidden="true"><div class="bc-pivot"><i class="fl-lamp"></i><i class="fl-glow"></i><i class="fl-streak"></i></div></div>
     <canvas class="sc-fx" id="sceneFx" aria-hidden="true"></canvas>
     <div class="sc-tag" aria-label="You look busy, I can fix that. 你看起来很忙。交给我吧。">
@@ -607,8 +605,8 @@ footer a{color:var(--ink2)}
   <div class="glow" aria-hidden="true"></div>
   <div class="veil" aria-hidden="true"><b class="veil-blur"></b><i class="m1"></i><i class="m2"></i><canvas class="veil-gl" id="veilGl"></canvas></div>
   <div class="hero-copy wrap">
-    <img class="icon-hero" src="assets/icon.png?v=48508fb31b" alt="Vanguard">
-    <div class="eyebrow"><img class="eb-icon" src="assets/icon.png?v=48508fb31b" alt="" aria-hidden="true">Vanguard <small>· v1.4.271</small></div>
+    <img class="icon-hero" src="assets/icon.png" alt="Vanguard">
+    <div class="eyebrow"><img class="eb-icon" src="assets/icon.png" alt="" aria-hidden="true">Vanguard <small>· v1.4.271</small></div>
     <h1>
       <span class="zh"><span class="line"><span style="--d:.12s">从使用 AI，</span></span><span class="line"><span style="--d:.3s">到<span class="grad">带领 AI。</span></span></span></span>
       <span class="en"><span class="line"><span style="--d:.12s">From using AI</span></span><span class="line"><span style="--d:.3s">to <span class="grad">leading it.</span></span></span></span>
@@ -618,10 +616,10 @@ footer a{color:var(--ink2)}
       <span class="en">One app for all your agents. Claude Code, Codex, Chengxiaobang and the other agents on your Mac become one squad: <b>you assign, decide and oversee</b>, and they hand work to each other.</span>
     </p>
     <div class="actions">
-      <a class="btn primary" href="https://artifactory.release.ctripcorp.com/artifactory/trip-generic-prod-shanghai/vanguard/latest/Vanguard.dmg" download data-umami-event="下载 Vanguard" data-umami-event-position="hero"><span class="zh">下载 Vanguard</span><span class="en">Download for Mac</span></a>
+      <a class="btn primary" href="https://trip.larkenterprise.com/file/Ui1Ub6dmYordYTxt8zyccyDknrb" target="_blank" rel="noopener" data-umami-event="下载 Vanguard" data-umami-event-position="hero"><span class="zh">下载 Vanguard</span><span class="en">Download for Mac</span></a>
       <a class="btn ghost" href="https://applink.larkenterprise.com/client/chat/chatter/add_by_link?link_token=a9cr48e3-45d7-4aa1-ac37-b3a2992a83b2"><span class="zh">加入讨论群 ↗</span><span class="en">Join the group ↗</span></a>
     </div>
-    <p class="meta"><span class="zh">macOS 13.4 及以上 · Apple 芯片 · 版本 1.4.271 · 370 MB · 免登录直接下载</span><span class="en">macOS 13.4+ · Apple silicon · version 1.4.271 · 370 MB · no sign‑in needed</span></p>
+    <p class="meta"><span class="zh">macOS 13.4 及以上 · Apple 芯片 · 版本 1.4.271 · 370 MB · 在飞书里下载</span><span class="en">macOS 13.4+ · Apple silicon · version 1.4.271 · 370 MB · downloads from Lark</span></p>
     <p class="support">
       <a href="https://applink.feishu.cn/client/chat/open?openId=ou_5c3fc5cc96ab4b401bdfd37b36f91126"><span class="zh">联系许成凯 ↗</span><span class="en">Contact Chengkai Xu ↗</span></a>
       <a class="hudlink" href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/"><span class="zh">只想要刘海上的 HUD？<b>SI Future HUD ↗</b></span><span class="en">Just want the notch HUD? <b>SI Future HUD ↗</b></span></a>
@@ -629,9 +627,9 @@ footer a{color:var(--ink2)}
   </div>
   <div class="film" id="film">
     <div class="film-frame">
-      <video id="filmVideo" muted loop playsinline preload="metadata" poster="media/film-poster.webp?v=41ce8e1816" aria-label="Vanguard 宣传片 / product film">
-        <source src="media/film-720p.mp4?v=73e4c93f4b" type="video/mp4" media="(max-width: 760px)">
-        <source src="media/film-1080p.mp4?v=b18b4bc083" type="video/mp4">
+      <video id="filmVideo" muted loop playsinline preload="metadata" poster="media/film-poster.webp" aria-label="Vanguard 宣传片 / product film">
+        <source src="media/film-720p.mp4" type="video/mp4" media="(max-width: 760px)">
+        <source src="media/film-1080p.mp4" type="video/mp4">
       </video>
       <div class="film-ui">
         <button type="button" class="sound" id="filmSound"><span class="s-on"><span class="zh">🔊 开声音</span><span class="en">🔊 Sound on</span></span><span class="s-off"><span class="zh">🔇 静音</span><span class="en">🔇 Mute</span></span></button>
@@ -669,7 +667,7 @@ footer a{color:var(--ink2)}
     <div class="kicker reveal"><span class="zh">它做什么</span><span class="en">What it does</span></div>
     <h2 class="reveal" style="--d:.08s"><span class="zh">派活、拍板、看全局，<br>都在一个应用里。</span><span class="en">Assign, decide, oversee.<br>All in one app.</span></h2>
     <div class="overview reveal">
-      <div class="ov-frame"><img loading="lazy" src="media/overview.webp?v=477d5f5db3" alt="Vanguard">
+      <div class="ov-frame"><img loading="lazy" src="media/overview.webp" alt="Vanguard">
         <button type="button" class="ov-pin" data-pin="1" style="left:13.5%;top:33.4%" aria-label="1">1</button>
         <button type="button" class="ov-pin" data-pin="2" style="left:56.5%;top:25.0%" aria-label="2">2</button>
         <button type="button" class="ov-pin" data-pin="3" style="left:64.5%;top:73.0%" aria-label="3">3</button>
@@ -697,7 +695,7 @@ footer a{color:var(--ink2)}
             <h3><span class="zh">@ 谁，就叫醒谁。<br>Bot 之间会接力。</span><span class="en">Mention a Bot,<br>it gets to work.</span></h3>
             <p><span class="zh">一句话 @ 两个 Bot，两个都醒来各干各的；Lens 修不了的，交给 Forge。每条消息最多连环唤醒 12 次，你点停止就停。没被叫到的，下次自动补看最近 40 条。</span><span class="en">Mention two Bots and both get to work; what Lens can’t fix goes to Forge. One message wakes at most 12 turns in a chain, and Stop ends it. A Bot that wasn’t called catches up on the last 40 messages next time.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/group-closeup.webp?v=06923353eb" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/group-closeup.webp" alt=""></div>
         </article>
         <article class="card big rev reveal">
           <div class="body">
@@ -705,42 +703,42 @@ footer a{color:var(--ink2)}
             <h3><span class="zh">终端和聊天，<br>都在工作区。</span><span class="en">Terminals and chats,<br>side by side.</span></h3>
             <p><span class="zh">工作区点“+”，本机所有 agent 都在菜单里，选模型和推理强度，开聊天或开终端都行。几个 agent 在同一个工作树里并排干活，终端里的 agent 还能直接互相问；改动和提交就在右栏，一键推送并开 PR。</span><span class="en">Press + in a workspace and every agent on your Mac is there; pick a model and effort, then open a chat or a terminal. Several agents work side by side in one worktree, and terminal agents can ask each other directly; changes and commits sit in the right column, one click to push and open a PR.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/workspace-side.webp?v=378c186953" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/workspace-side.webp" alt=""></div>
         </article>
         <article class="card  reveal">
           <div class="body">
             <h3><span class="zh">私聊，像发 iMessage</span><span class="en">DMs, like iMessage</span></h3>
             <p><span class="zh">蓝白气泡、已读；Bot 的回复能带卡片，比如 3 个 PR 的状态。</span><span class="en">Blue and white bubbles with read receipts; a Bot’s reply can carry a card, like the status of three PRs.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/direct.webp?v=fca4ed2b70" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/direct.webp" alt=""></div>
         </article>
         <article class="card  reveal" style="--d:.08s">
           <div class="body">
             <h3><span class="zh">换个 agent，接着干</span><span class="en">Switch agents, keep going</span></h3>
             <p><span class="zh">Claude 额度快用完？右键交接给 Codex，它带着上下文修完、提交。原来的会话不动。</span><span class="en">Claude nearly out of quota? Hand the session to Codex; it picks up the context, finishes and commits. The original stays put.</span></p>
           </div>
-          <div class="media"><video muted loop playsinline preload="none" poster="media/handoff-poster.webp?v=6de5ad0bf9" data-auto><source src="media/handoff.mp4?v=6c1e6cc72a" type="video/mp4"></video></div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/handoff-poster.webp" data-auto><source src="media/handoff.mp4" type="video/mp4"></video></div>
         </article>
         <article class="card  reveal" style="--d:.16s">
           <div class="body">
             <h3><span class="zh">撤销一轮，文件一起回去</span><span class="en">Undo a turn, files included</span></h3>
             <p><span class="zh">每轮开始前自动拍快照。改坏了就退回那一轮，恢复前先列出会动哪些文件，反悔还能撤销。</span><span class="en">Every turn starts with a snapshot. Roll back a bad turn; you see which files will change first, and you can undo the rollback too.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/rewind.webp?v=eb4c5bdb0a" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/rewind.webp" alt=""></div>
         </article>
         <article class="card half reveal">
           <div class="body">
             <h3><span class="zh">插一句话，不用打断</span><span class="en">Add a word without interrupting</span></h3>
             <p><span class="zh">agent 正跑着，选“下一步带话”或“停在下一步”。话在它下一次调用工具时生效，生效前还能取消。</span><span class="en">While an agent runs, add a note for its next step or have it stop there. It takes effect at the next tool call, and you can still cancel before then.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/steer.webp?v=f64eb95c18" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/steer.webp" alt=""></div>
         </article>
         <article class="card half reveal" style="--d:.08s">
           <div class="body">
             <h3><span class="zh">做完叫我</span><span class="en">Ping me when it’s done</span></h3>
             <p><span class="zh">说一句“CI 跑完叫我”，Bot 就等着；一出结果它自己醒来汇报，到点还没结果也会来说一声。</span><span class="en">Say “ping me when CI finishes” and the Bot waits. It wakes up to report the result, and checks in if the deadline passes first.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/notify-done.webp?v=117633ebed" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/notify-done.webp" alt=""></div>
         </article>
       </div>
       <div class="more reveal"><div class="more-label"><span class="zh">还有</span><span class="en">Also</span></div><div class="more-grid">
@@ -763,21 +761,21 @@ footer a{color:var(--ink2)}
             <h3><span class="zh">谁在干活、谁在等你，<br>活动页一眼看到。</span><span class="en">Who’s working, who’s waiting,<br>on one page.</span></h3>
             <p><span class="zh">“需要你”排最上面：提问、待批准、完成待验收。Vanguard 里、终端里、桌面窗口里的会话放在一起，点一行就回到现场。处理一处，左栏、状态栏、刘海同步减一；也能先延后。</span><span class="en">Needs you comes first: questions, approvals, work to check. Sessions in Vanguard, in terminals and in desktop apps share the page; click a row to jump back in. Handle one and the sidebar, status bar and notch update together; or snooze it.</span></p>
           </div>
-          <div class="media"><video muted loop playsinline preload="none" poster="media/needs-sync-poster.webp?v=8c30750646" data-auto><source src="media/needs-sync.mp4?v=4a99300ec4" type="video/mp4"></video></div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/needs-sync-poster.webp" data-auto><source src="media/needs-sync.mp4" type="video/mp4"></video></div>
         </article>
         <article class="card half reveal">
           <div class="body">
             <h3><span class="zh">敏感操作，等你点头</span><span class="en">Risky steps wait for you</span></h3>
             <p><span class="zh">审批卡写清楚它要做什么：批准一次、本会话总是允许，或者拒绝并附一句理由，Bot 照着改。</span><span class="en">Each approval card says exactly what it will do: allow once, always allow in this session, or deny with a reason the Bot will follow.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/approval.webp?v=cbfc1518ca" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/approval.webp" alt=""></div>
         </article>
         <article class="card half reveal" style="--d:.08s">
           <div class="body">
             <h3><span class="zh">开会时，用余光处理</span><span class="en">Handle it from the corner of your eye</span></h3>
             <p><span class="zh">窗口一堆的时候，刘海一条条列出等你的事，批准、拒绝、回答提问都在刘海里点。</span><span class="en">When windows pile up, the notch lists what’s waiting; approve, deny or answer right there.</span></p>
           </div>
-          <div class="media"><video muted loop playsinline preload="none" poster="media/notch-poster.webp?v=cacc18981d" data-auto><source src="media/notch.mp4?v=03c47e6950" type="video/mp4"></video></div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/notch-poster.webp" data-auto><source src="media/notch.mp4" type="video/mp4"></video></div>
         </article>
       </div>
       <div class="more reveal"><div class="more-label"><span class="zh">还有</span><span class="en">Also</span></div><div class="more-grid">
@@ -797,35 +795,35 @@ footer a{color:var(--ink2)}
             <h3><span class="zh">花了多少，<br>一眼看到。</span><span class="en">What you’ve spent,<br>at a glance.</span></h3>
             <p><span class="zh">今日花费和预算、谁花得多、各家额度圆环、聊天轮次、缓存命中，一页看完。花费按本机记录估算，记在各家自己的账号上。</span><span class="en">Today’s spend against budget, who spent most, a quota ring per provider, chat turns and cache hits, all on one page. Costs are estimated from local records and billed to each provider’s own account.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/usage.webp?v=6c68fdf7cd" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/usage.webp" alt=""></div>
         </article>
         <article class="card half reveal">
           <div class="body">
             <h3><span class="zh">各家额度，常驻状态栏</span><span class="en">Every quota in the status bar</span></h3>
             <p><span class="zh">每家 agent 一条小进度条：用了多少、多久重置。点开看每个窗口的消耗速度和预计用完时间，几个账户一键切换。</span><span class="en">One small bar per provider: how much is used and when it resets. Open it for burn rate and run‑out time per window, and switch accounts in one click.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/status-bar.webp?v=c5d3d66e6e" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/status-bar.webp" alt=""></div>
         </article>
         <article class="card half reveal" style="--d:.08s">
           <div class="body">
             <h3><span class="zh">谁占了内存，一眼看到</span><span class="en">Where the memory went</span></h3>
             <p><span class="zh">内存分给 Vanguard、各家 agent、其他终端各多少；按项目、工作树、会话列出 CPU 和内存。没人管的孤立终端，一键清理。</span><span class="en">Memory split between Vanguard, each agent and other terminals; CPU and memory by project, worktree and session. Orphaned terminals are flagged and cleared in one click.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/resource.webp?v=0ce9aea6fd" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/resource.webp" alt=""></div>
         </article>
         <article class="card half reveal">
           <div class="body">
             <h3><span class="zh">鼠标移上刘海，额度尽收眼底</span><span class="en">Hover the notch, see every quota</span></h3>
             <p><span class="zh">SI Future HUD 的面板原样保留：各家额度窗口、重置倒计时、token 消耗。HUD 内置在 Vanguard 里，不多占 Dock 图标。<a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">只要这块刘海？</a></span><span class="en">The SI Future HUD panel, kept as it was: every quota window, reset countdowns, token use. It’s built into Vanguard, with no extra Dock icon. <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">Just want the notch?</a></span></p>
           </div>
-          <div class="media"><video muted loop playsinline preload="none" poster="media/hud-hover-poster.webp?v=125b09a1e7" data-auto><source src="media/hud-hover.mp4?v=fa4c74ff94" type="video/mp4"></video></div>
+          <div class="media"><video muted loop playsinline preload="none" poster="media/hud-hover-poster.webp" data-auto><source src="media/hud-hover.mp4" type="video/mp4"></video></div>
         </article>
         <article class="card half reveal" style="--d:.08s">
           <div class="body">
             <h3><span class="zh">所有 agent 的会话，一处搜</span><span class="en">Search every agent’s history</span></h3>
             <p><span class="zh">22 家 agent 的本机会话记录建成全文索引。搜到就能接着聊，或者交给别的 agent；agent 自己也会搜。</span><span class="en">Local session logs from 22 agents in one full‑text index. Pick up where you left off or hand it to another agent; agents search it too.</span></p>
           </div>
-          <div class="media"><img loading="lazy" src="media/search.webp?v=92219b8962" alt=""></div>
+          <div class="media"><img loading="lazy" src="media/search.webp" alt=""></div>
         </article>
       </div>
       <div class="more reveal"><div class="more-label"><span class="zh">还有</span><span class="en">Also</span></div><div class="more-grid">
@@ -844,18 +842,18 @@ footer a{color:var(--ink2)}
     <h2 class="reveal" style="--d:.08s"><span class="zh">每个 Bot，<br>都是你的队员。</span><span class="en">Every Bot<br>is on your team.</span></h2>
     <p class="sub reveal" style="--d:.16s"><span class="zh">有名字、有分工、有记忆。招募位一点就招新，组队位一点就拉群；换个引擎，人设和记忆都在。</span><span class="en">Each has a name, a job and a memory. Tap the empty seat to recruit, tap the team slot to start a group; switch its engine and the persona and memory stay.</span></p>
     <div class="squad reveal" style="--d:.2s">
-      <figure style="--i:0"><img src="assets/fruit-pine.png?v=0e0bf4cf6f" alt=""><figcaption>Pilot<small><span class="zh">带队</span><span class="en">lead</span></small></figcaption></figure>
-      <figure style="--i:1"><img src="assets/fruit-blue.png?v=638ba76dfc" alt=""><figcaption>Forge<small><span class="zh">写代码</span><span class="en">builds</span></small></figcaption></figure>
-      <figure style="--i:2"><img src="assets/fruit-mangosteen.png?v=48b88029dd" alt=""><figcaption>Lens<small><span class="zh">审代码</span><span class="en">reviews</span></small></figcaption></figure>
-      <figure style="--i:3"><img src="assets/fruit-orange.png?v=ff9df3886a" alt=""><figcaption>Harbor<small><span class="zh">发版</span><span class="en">ships</span></small></figcaption></figure>
-      <figure style="--i:4"><img src="assets/fruit-cherry.png?v=43fc7e36d3" alt=""><figcaption>Probe<small><span class="zh">跑测试</span><span class="en">tests</span></small></figcaption></figure>
-      <figure style="--i:5"><img src="assets/fruit-green.png?v=98316effea" alt=""><figcaption><span class="zh">程小帮</span><span class="en">Chengxiaobang</span><small><span class="zh">懂公司业务</span><span class="en">knows the company</span></small></figcaption></figure>
-      <figure style="--i:6"><img src="assets/fruit-peach.png?v=445e3d438a" alt=""><figcaption>Scout<small><span class="zh">查资料</span><span class="en">researches</span></small></figcaption></figure>
+      <figure style="--i:0"><img src="assets/fruit-pine.png" alt=""><figcaption>Pilot<small><span class="zh">带队</span><span class="en">lead</span></small></figcaption></figure>
+      <figure style="--i:1"><img src="assets/fruit-blue.png" alt=""><figcaption>Forge<small><span class="zh">写代码</span><span class="en">builds</span></small></figcaption></figure>
+      <figure style="--i:2"><img src="assets/fruit-mangosteen.png" alt=""><figcaption>Lens<small><span class="zh">审代码</span><span class="en">reviews</span></small></figcaption></figure>
+      <figure style="--i:3"><img src="assets/fruit-orange.png" alt=""><figcaption>Harbor<small><span class="zh">发版</span><span class="en">ships</span></small></figcaption></figure>
+      <figure style="--i:4"><img src="assets/fruit-cherry.png" alt=""><figcaption>Probe<small><span class="zh">跑测试</span><span class="en">tests</span></small></figcaption></figure>
+      <figure style="--i:5"><img src="assets/fruit-green.png" alt=""><figcaption><span class="zh">程小帮</span><span class="en">Chengxiaobang</span><small><span class="zh">懂公司业务</span><span class="en">knows the company</span></small></figcaption></figure>
+      <figure style="--i:6"><img src="assets/fruit-peach.png" alt=""><figcaption>Scout<small><span class="zh">查资料</span><span class="en">researches</span></small></figcaption></figure>
     </div>
     <div class="trio">
-      <figure class="shot reveal"><div class="frame"><img loading="lazy" src="media/recruit.webp?v=4cea80860c" alt=""></div><figcaption><b><span class="zh">招募新 Bot</span><span class="en">Recruit a Bot</span></b><span class="zh">选头像、起名、写清楚它负责什么。本机装了哪个 agent，就能选哪个当引擎。</span><span class="en">Pick a face and a name, say what it's for. Any agent installed on your Mac can be its engine.</span></figcaption></figure>
-      <figure class="shot reveal" style="--d:.08s"><div class="frame"><img loading="lazy" src="media/profile.webp?v=a79f550ece" alt=""></div><figcaption><b><span class="zh">人设、技能、记忆</span><span class="en">Persona, skills, memory</span></b><span class="zh">聊天里说一句“记住”，它就记进记忆卡。成功率、最近干了什么，一眼看到。</span><span class="en">Say “remember this” in chat and it lands on its memory card. Success rate and latest work at a glance.</span></figcaption></figure>
-      <figure class="shot reveal" style="--d:.16s"><div class="frame"><img loading="lazy" src="media/new-group.webp?v=6bcc5b83d4" alt=""></div><figcaption><b><span class="zh">拉一个群</span><span class="en">Start a group</span></b><span class="zh">勾几个 Bot，选一个组长。外面的程小帮，经 HUD 也能进群。</span><span class="en">Tick a few Bots and choose a lead. Chengxiaobang outside Vanguard can join through the HUD.</span></figcaption></figure>
+      <figure class="shot reveal"><div class="frame"><img loading="lazy" src="media/recruit.webp" alt=""></div><figcaption><b><span class="zh">招募新 Bot</span><span class="en">Recruit a Bot</span></b><span class="zh">选头像、起名、写清楚它负责什么。本机装了哪个 agent，就能选哪个当引擎。</span><span class="en">Pick a face and a name, say what it's for. Any agent installed on your Mac can be its engine.</span></figcaption></figure>
+      <figure class="shot reveal" style="--d:.08s"><div class="frame"><img loading="lazy" src="media/profile.webp" alt=""></div><figcaption><b><span class="zh">人设、技能、记忆</span><span class="en">Persona, skills, memory</span></b><span class="zh">聊天里说一句“记住”，它就记进记忆卡。成功率、最近干了什么，一眼看到。</span><span class="en">Say “remember this” in chat and it lands on its memory card. Success rate and latest work at a glance.</span></figcaption></figure>
+      <figure class="shot reveal" style="--d:.16s"><div class="frame"><img loading="lazy" src="media/new-group.webp" alt=""></div><figcaption><b><span class="zh">拉一个群</span><span class="en">Start a group</span></b><span class="zh">勾几个 Bot，选一个组长。外面的程小帮，经 HUD 也能进群。</span><span class="en">Tick a few Bots and choose a lead. Chengxiaobang outside Vanguard can join through the HUD.</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -886,11 +884,11 @@ footer a{color:var(--ink2)}
         </g>
         <circle id="spark" r="7" fill="#D9480F" opacity="0"/>
       </svg>
-      <div class="core" id="core"><img src="assets/icon.png?v=48508fb31b" alt=""><em>Vanguard</em></div>
-      <div class="node" style="left:15%;top:17.3%"><div class="ic"><img src="assets/fruit-pine.png?v=0e0bf4cf6f" alt=""></div><em><span class="zh">你的 Bot</span><span class="en">Your Bots</span><small><span class="zh">群聊和私聊</span><span class="en">groups and DMs</span></small></em></div>
+      <div class="core" id="core"><img src="assets/icon.png" alt=""><em>Vanguard</em></div>
+      <div class="node" style="left:15%;top:17.3%"><div class="ic"><img src="assets/fruit-pine.png" alt=""></div><em><span class="zh">你的 Bot</span><span class="en">Your Bots</span><small><span class="zh">群聊和私聊</span><span class="en">groups and DMs</span></small></em></div>
       <div class="node" style="left:85%;top:17.3%"><div class="ic" style="background:#1D1D1F"><svg viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7l5 5-5 5"/><path d="M13 17h6"/></svg></div><em><span class="zh">终端里的 agent</span><span class="en">Terminal agents</span><small><span class="zh">互相发消息</span><span class="en">message each other</span></small></em></div>
-      <div class="node" style="left:90%;top:67.3%"><div class="ic"><img src="assets/si-hud-logo.png?v=dc5a8d923b" alt="" style="object-fit:contain;padding:8px"></div><em><span class="zh">桌面窗口</span><span class="en">Desktop apps</span><small><span class="zh">经 HUD 传话</span><span class="en">through the HUD</span></small></em></div>
-      <div class="node" style="left:50%;top:82.7%"><div class="ic"><img src="assets/agent-grok-bot.png?v=3e3bb0057a" alt=""></div><em><span class="zh">来访的 agent</span><span class="en">Visiting agents</span><small><span class="zh">每次你点头</span><span class="en">you approve each</span></small></em></div>
+      <div class="node" style="left:90%;top:67.3%"><div class="ic"><img src="assets/si-hud-logo.png" alt="" style="object-fit:contain;padding:8px"></div><em><span class="zh">桌面窗口</span><span class="en">Desktop apps</span><small><span class="zh">经 HUD 传话</span><span class="en">through the HUD</span></small></em></div>
+      <div class="node" style="left:50%;top:82.7%"><div class="ic"><img src="assets/agent-grok-bot.png" alt=""></div><em><span class="zh">来访的 agent</span><span class="en">Visiting agents</span><small><span class="zh">每次你点头</span><span class="en">you approve each</span></small></em></div>
       <div class="node" style="left:10%;top:67.3%"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.6"/><path d="M2 19h20"/></svg></div><em><span class="zh">另一台电脑</span><span class="en">Another Mac</span><small><span class="zh">配对直连</span><span class="en">paired, direct</span></small></em></div>
     </div>
     <div class="caption wrap" aria-live="polite">
@@ -905,7 +903,7 @@ footer a{color:var(--ink2)}
 </section>
 <section class="talk alt">
   <div class="wrap">
-    <figure class="shot reveal"><div class="frame"><video muted loop playsinline preload="none" poster="media/talk-poster.webp?v=ae406f40ba" data-auto><source src="media/talk.mp4?v=4f5e192190" type="video/mp4"></video></div><figcaption><b><span class="zh">一句话，问遍各处。</span><span class="en">Ask everywhere in one message.</span></b><span class="zh">回复带着来源，回到同一个群里。</span><span class="en">Answers come back to the same group, each with its source.</span></figcaption></figure>
+    <figure class="shot reveal"><div class="frame"><video muted loop playsinline preload="none" poster="media/talk-poster.webp" data-auto><source src="media/talk.mp4" type="video/mp4"></video></div><figcaption><b><span class="zh">一句话，问遍各处。</span><span class="en">Ask everywhere in one message.</span></b><span class="zh">回复带着来源，回到同一个群里。</span><span class="en">Answers come back to the same group, each with its source.</span></figcaption></figure>
   </div>
 </section>
 
@@ -922,47 +920,47 @@ footer a{color:var(--ink2)}
           <p><span class="zh">闲着时 Q 弹；读文件捧着书，写代码敲键盘，用电脑盯着屏幕。动画只挪图层、不重画，一直动着也省电。</span><span class="en">Idle, they wobble; reading, they hold a book; writing, they type; on the computer, they watch the screen. The animation moves layers instead of redrawing, so it stays light on power.</span></p>
         </div>
         <div class="fruits">
-          <figure><video muted loop playsinline preload="none" poster="media/fruit-idle-poster.webp?v=c00779bfc1" data-auto><source src="media/fruit-idle.mp4?v=7a212ac081" type="video/mp4"></video><figcaption><span class="zh">闲着</span><span class="en">Idle</span></figcaption></figure>
-          <figure><video muted loop playsinline preload="none" poster="media/fruit-read-poster.webp?v=26c4d4a1c5" data-auto><source src="media/fruit-read.mp4?v=966b3973ef" type="video/mp4"></video><figcaption><span class="zh">读文件</span><span class="en">Reading</span></figcaption></figure>
-          <figure><video muted loop playsinline preload="none" poster="media/fruit-type-poster.webp?v=38e789c89a" data-auto><source src="media/fruit-type.mp4?v=e84c0336ed" type="video/mp4"></video><figcaption><span class="zh">写代码</span><span class="en">Writing</span></figcaption></figure>
-          <figure><video muted loop playsinline preload="none" poster="media/fruit-computer-poster.webp?v=8cdbd33895" data-auto><source src="media/fruit-computer.mp4?v=a9c1bcaf6d" type="video/mp4"></video><figcaption><span class="zh">用电脑</span><span class="en">On the computer</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-idle-poster.webp" data-auto><source src="media/fruit-idle.mp4" type="video/mp4"></video><figcaption><span class="zh">闲着</span><span class="en">Idle</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-read-poster.webp" data-auto><source src="media/fruit-read.mp4" type="video/mp4"></video><figcaption><span class="zh">读文件</span><span class="en">Reading</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-type-poster.webp" data-auto><source src="media/fruit-type.mp4" type="video/mp4"></video><figcaption><span class="zh">写代码</span><span class="en">Writing</span></figcaption></figure>
+          <figure><video muted loop playsinline preload="none" poster="media/fruit-computer-poster.webp" data-auto><source src="media/fruit-computer.mp4" type="video/mp4"></video><figcaption><span class="zh">用电脑</span><span class="en">On the computer</span></figcaption></figure>
         </div>
       </article>
       <article class="tile reveal">
         <div class="txt"><h3><span class="zh">彩色回应</span><span class="en">Colorful reactions</span></h3><p><span class="zh">鼠标移到消息上，六个彩色回应弹出来。点一下不打断 Bot，下一轮它会看到。</span><span class="en">Hover a message and six colorful reactions pop up. Tapping one doesn't interrupt the Bot; it sees it next turn.</span></p></div>
-        <div class="media"><video muted loop playsinline preload="none" poster="media/react-pop-poster.webp?v=45cb695dcc" data-auto><source src="media/react-pop.mp4?v=d574bba4e3" type="video/mp4"></video></div>
+        <div class="media"><video muted loop playsinline preload="none" poster="media/react-pop-poster.webp" data-auto><source src="media/react-pop.mp4" type="video/mp4"></video></div>
       </article>
       <article class="tile reveal" style="--d:.08s">
         <div class="txt"><h3><span class="zh">每个回应都有小动作</span><span class="en">Each reaction has a move</span></h3><p><span class="zh">悬停时，每个图标都动得不一样。</span><span class="en">Hover, and every icon moves in its own way.</span></p></div>
-        <div class="media"><video muted loop playsinline preload="none" poster="media/react-hover-poster.webp?v=ea40ff828f" data-auto><source src="media/react-hover.mp4?v=fa0fe74c11" type="video/mp4"></video></div>
+        <div class="media"><video muted loop playsinline preload="none" poster="media/react-hover-poster.webp" data-auto><source src="media/react-hover.mp4" type="video/mp4"></video></div>
       </article>
       <article class="tile reveal" style="--d:.16s">
         <div class="txt"><h3><span class="zh">空座位，一点就来人</span><span class="en">An empty seat, a new teammate</span></h3><p><span class="zh">头像行末尾的空座位一点就招新 Bot；会话列表末尾三个小水果，一点就拉群。</span><span class="en">The empty seat at the end of the avatars recruits a Bot; the three little fruits at the end of the list start a group.</span></p></div>
-        <div class="media seats"><video muted loop playsinline preload="none" poster="media/recruit-seat-poster.webp?v=ac29160ed4" data-auto><source src="media/recruit-seat.mp4?v=f2719d0d56" type="video/mp4"></video><video muted loop playsinline preload="none" poster="media/team-seat-poster.webp?v=14784cca6d" data-auto><source src="media/team-seat.mp4?v=9cdddef8ad" type="video/mp4"></video></div>
+        <div class="media seats"><video muted loop playsinline preload="none" poster="media/recruit-seat-poster.webp" data-auto><source src="media/recruit-seat.mp4" type="video/mp4"></video><video muted loop playsinline preload="none" poster="media/team-seat-poster.webp" data-auto><source src="media/team-seat.mp4" type="video/mp4"></video></div>
       </article>
       <article class="tile reveal">
         <div class="txt"><h3><span class="zh">只说一次的小提示</span><span class="en">Tips that speak once</span></h3><p><span class="zh">第一次见到回应和审批时，原处冒一句话；看过就不再出现。</span><span class="en">The first time you see reactions or an approval, a one‑line tip appears right there, and never again.</span></p></div>
-        <div class="media"><img loading="lazy" src="media/tips-once.webp?v=7b07323794" alt=""></div>
+        <div class="media"><img loading="lazy" src="media/tips-once.webp" alt=""></div>
       </article>
       <article class="tile reveal" style="--d:.08s">
         <div class="txt"><h3><span class="zh">回复能展开</span><span class="en">Replies unfold</span></h3><p><span class="zh">点开“工作了 41s”，读了哪些文件、改了哪些、跑了什么命令，连改动差异都在。</span><span class="en">Open “Worked for 41s” to see the files it read and changed, the commands it ran, and the diff.</span></p></div>
-        <div class="media"><img loading="lazy" src="media/work-log.webp?v=e7146bfd36" alt=""></div>
+        <div class="media"><img loading="lazy" src="media/work-log.webp" alt=""></div>
       </article>
       <article class="tile reveal" style="--d:.16s">
         <div class="txt"><h3><span class="zh">小机器人跟着干活变</span><span class="en">The little bot acts it out</span></h3><p><span class="zh">思考、改代码、等你批准、完成，刘海上的小机器人换着动作告诉你。</span><span class="en">Thinking, editing, waiting for you, done: the bot on the notch acts out each one.</span></p></div>
-        <div class="media"><video muted loop playsinline preload="none" poster="media/hud-robots-poster.webp?v=92f61553a2" data-auto><source src="media/hud-robots.mp4?v=91667f1b88" type="video/mp4"></video></div>
+        <div class="media"><video muted loop playsinline preload="none" poster="media/hud-robots-poster.webp" data-auto><source src="media/hud-robots.mp4" type="video/mp4"></video></div>
       </article>
       <article class="tile reveal">
         <div class="txt"><h3><span class="zh">做完，冒个气泡</span><span class="en">Done? A bubble says so</span></h3><p><span class="zh">活一干完，办公室里的 Bot 头上冒出它的最后一句话。不用切窗口也知道谁做完了。</span><span class="en">When a Bot finishes, its last line pops up over its head in the office. No window switching needed.</span></p></div>
-        <div class="media"><img loading="lazy" src="media/office-bubble.webp?v=c994baa76e" alt=""></div>
+        <div class="media"><img loading="lazy" src="media/office-bubble.webp" alt=""></div>
       </article>
       <article class="tile reveal" style="--d:.08s">
         <div class="txt"><h3><span class="zh">深色模式</span><span class="en">Dark mode</span></h3><p><span class="zh">iMessage 的深色气质，气泡、卡片、审批卡都重新配色，晚上看不刺眼。</span><span class="en">iMessage‑style dark, with bubbles, cards and approvals all recolored. Easy on the eyes at night.</span></p></div>
-        <div class="media"><img loading="lazy" src="media/dark.webp?v=dc2903e812" alt=""></div>
+        <div class="media"><img loading="lazy" src="media/dark.webp" alt=""></div>
       </article>
       <article class="tile reveal" style="--d:.16s">
         <div class="txt"><h3><span class="zh">三种形态，六种光晕</span><span class="en">Three looks, six glows</span></h3><p><span class="zh">MacBook 用刘海，外接屏用动态或简约；光晕有柔光、点阵、字符、色块、盲文、二进制。</span><span class="en">The notch on a MacBook, Dynamic or Simple on other screens; glows in soft, dots, characters, blocks, braille and binary.</span></p></div>
-        <div class="media"><img loading="lazy" src="media/hud-looks.webp?v=24105886bb" alt=""></div>
+        <div class="media"><img loading="lazy" src="media/hud-looks.webp" alt=""></div>
       </article>
     </div>
   </div>
@@ -974,10 +972,10 @@ footer a{color:var(--ink2)}
     <div class="big reveal">One more thing<span class="dot"></span></div>
     <h2 class="reveal" style="--d:.2s;margin-top:40px;font-size:clamp(28px,4vw,50px)"><span class="zh">像素办公室：<span class="grad">余光里，看见整支队伍。</span></span><span class="en">The pixel office: <span class="grad">your whole team, at a glance.</span></span></h2>
     <p class="sub reveal" style="--d:.3s"><span class="zh">办公室就在右栏，和群聊并排。每个 agent 一张工位：问号是在等你，感叹号是卡住了，做完冒个气泡说一句。点一下，跳到它的聊天。</span><span class="en">It sits in the right column next to the chat. Every agent has a desk: a question mark means it's waiting for you, an exclamation mark means it's stuck, and a bubble pops up when it's done. Click to jump to its chat.</span></p>
-    <div class="wide reveal" style="--d:.1s"><video muted loop playsinline preload="none" poster="media/office-interact-poster.webp?v=ba59beacfd" data-auto><source src="media/office-interact.mp4?v=dbb4e9615a" type="video/mp4"></video></div>
+    <div class="wide reveal" style="--d:.1s"><video muted loop playsinline preload="none" poster="media/office-interact-poster.webp" data-auto><source src="media/office-interact.mp4" type="video/mp4"></video></div>
     <div class="pair">
-      <figure class="shot reveal"><div class="frame"><video muted loop playsinline preload="none" poster="media/office-play-poster.webp?v=5c4b61b6c0" data-auto><source src="media/office-play.mp4?v=3de1e67f9c" type="video/mp4"></video></div><figcaption><b><span class="zh">闲着去玩，有活就回</span><span class="en">Idle Bots go play</span></b><span class="zh">乒乓、游泳、食堂、羽毛球；一来活，马上回工位。</span><span class="en">Ping‑pong, the pool, the canteen, badminton; back at the desk the moment work arrives.</span></figcaption></figure>
-      <figure class="shot reveal" style="--d:.1s"><div class="frame"><img loading="lazy" src="media/office-daynight.webp?v=e8c14b5b24" alt=""></div><figcaption><b><span class="zh">昼夜和节日</span><span class="en">Day, night and holidays</span></b><span class="zh">四个时段的光线，还有圣诞季。窗外是上海外滩。</span><span class="en">Four times of day and a Christmas season, with the Shanghai Bund outside.</span></figcaption></figure>
+      <figure class="shot reveal"><div class="frame"><video muted loop playsinline preload="none" poster="media/office-play-poster.webp" data-auto><source src="media/office-play.mp4" type="video/mp4"></video></div><figcaption><b><span class="zh">闲着去玩，有活就回</span><span class="en">Idle Bots go play</span></b><span class="zh">乒乓、游泳、食堂、羽毛球；一来活，马上回工位。</span><span class="en">Ping‑pong, the pool, the canteen, badminton; back at the desk the moment work arrives.</span></figcaption></figure>
+      <figure class="shot reveal" style="--d:.1s"><div class="frame"><img loading="lazy" src="media/office-daynight.webp" alt=""></div><figcaption><b><span class="zh">昼夜和节日</span><span class="en">Day, night and holidays</span></b><span class="zh">四个时段的光线，还有圣诞季。窗外是上海外滩。</span><span class="en">Four times of day and a Christmas season, with the Shanghai Bund outside.</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -994,11 +992,11 @@ footer a{color:var(--ink2)}
       <div class="tier hi reveal" style="--d:.16s"><b>32<small><span class="zh">种</span></small></b><span><span class="zh">能建成 Bot，进群干活</span><span class="en">can be Bots in your groups</span></span></div>
     </div>
     <div class="logos reveal" style="--d:.1s">
-      <span class="logo"><img src="assets/agent-claude.png?v=25cdd92a5c" alt="">Claude Code</span>
-      <span class="logo"><img src="assets/agent-chatgpt.png?v=02d5b6fb7e" alt="">Codex</span>
-      <span class="logo"><img src="assets/agent-chengxiaobang.png?v=5c69526809" alt=""><span class="zh">程小帮</span><span class="en">Chengxiaobang</span></span>
-      <span class="logo"><img src="assets/agent-cursor.png?v=e47eaeea05" alt="">Cursor</span>
-      <span class="logo"><img src="assets/agent-grok-bot.png?v=3e3bb0057a" alt="">Grok</span>
+      <span class="logo"><img src="assets/agent-claude.png" alt="">Claude Code</span>
+      <span class="logo"><img src="assets/agent-chatgpt.png" alt="">Codex</span>
+      <span class="logo"><img src="assets/agent-chengxiaobang.png" alt=""><span class="zh">程小帮</span><span class="en">Chengxiaobang</span></span>
+      <span class="logo"><img src="assets/agent-cursor.png" alt="">Cursor</span>
+      <span class="logo"><img src="assets/agent-grok-bot.png" alt="">Grok</span>
       <span class="chip">Gemini</span><span class="chip">Kiro</span><span class="chip">GitHub Copilot</span><span class="chip">OpenCode</span><span class="chip">Kimi</span><span class="chip">Qwen Code</span><span class="chip">…</span>
     </div>
     <p class="note reveal"><span class="zh">Vanguard 外面已经开着的 Claude 桌面版、Codex App、程小帮 App，经内置的 HUD 一对一传话；能进群的外部成员目前是程小帮。</span><span class="en">Claude, Codex and Chengxiaobang desktop apps already open outside Vanguard talk one‑to‑one through the built‑in HUD; for now Chengxiaobang is the outside member that can join a group.</span></p>
@@ -1013,7 +1011,7 @@ footer a{color:var(--ink2)}
     <p class="sub reveal" style="--d:.14s"><span class="zh">Vanguard 是下一代综合体，HUD 是它的一部分。只想在刘海旁看额度、状态、审批，让助手们互相传话，装 SI Future HUD 就够了，它会继续维护。</span><span class="en">Vanguard is the next‑generation all‑in‑one, and the HUD is part of it. If all you want is quotas, live states, approvals and agent‑to‑agent messages by the notch, SI Future HUD is enough, and it stays maintained.</span></p>
     <div class="choose">
       <div class="prod reveal">
-        <div class="top"><img src="assets/icon.png?v=48508fb31b" alt=""><h3>Vanguard<small><span class="zh">带一支 AI 小队</span><span class="en">Lead a squad of AIs</span></small></h3></div>
+        <div class="top"><img src="assets/icon.png" alt=""><h3>Vanguard<small><span class="zh">带一支 AI 小队</span><span class="en">Lead a squad of AIs</span></small></h3></div>
         <ul>
           <li><span class="zh">工作区：终端和聊天，任选 agent</span><span class="en">Workspaces: terminal or chat, any agent</span></li>
           <li><span class="zh">Bots 和群聊：@ 谁叫醒谁，互相接力</span><span class="en">Bots and groups that hand off work</span></li>
@@ -1023,10 +1021,10 @@ footer a{color:var(--ink2)}
           <li><span class="zh">内置 HUD：SI Future HUD 的刘海面板</span><span class="en">Built‑in HUD: the SI Future HUD notch panel</span></li>
         </ul>
         <p class="spec"><span class="zh">macOS 13.4 及以上 · Apple 芯片 · 版本 1.4.271</span><span class="en">macOS 13.4+ · Apple silicon · version 1.4.271</span></p>
-        <div class="actions"><a class="btn primary" href="https://artifactory.release.ctripcorp.com/artifactory/trip-generic-prod-shanghai/vanguard/latest/Vanguard.dmg" download data-umami-event="下载 Vanguard" data-umami-event-position="products"><span class="zh">下载 Vanguard</span><span class="en">Download Vanguard</span></a></div>
+        <div class="actions"><a class="btn primary" href="https://trip.larkenterprise.com/file/Ui1Ub6dmYordYTxt8zyccyDknrb" target="_blank" rel="noopener" data-umami-event="下载 Vanguard" data-umami-event-position="products"><span class="zh">下载 Vanguard</span><span class="en">Download Vanguard</span></a></div>
       </div>
       <div class="prod si reveal" style="--d:.1s">
-        <div class="top"><img src="assets/si-hud-logo.png?v=dc5a8d923b" alt="" style="border-radius:0"><h3>SI Future HUD<small><span class="zh">只要刘海上的余光</span><span class="en">Just the notch</span></small></h3></div>
+        <div class="top"><img src="assets/si-hud-logo.png" alt="" style="border-radius:0"><h3>SI Future HUD<small><span class="zh">只要刘海上的余光</span><span class="en">Just the notch</span></small></h3></div>
         <ul>
           <li><span class="zh">额度、实时状态，悬停就看</span><span class="en">Quotas and live states on hover</span></li>
           <li><span class="zh">在刘海上直接审批</span><span class="en">Approve right on the notch</span></li>
@@ -1067,6 +1065,8 @@ footer a{color:var(--ink2)}
       <div class="step reveal">
         <h3><span class="zh">拖进「应用程序」</span><span class="en">Drag to Applications</span></h3>
         <p><span class="zh">打开 DMG，把 Vanguard 拖进「应用程序」，再从那里打开。</span><span class="en">Open the DMG, drag Vanguard into Applications and open it from there.</span></p>
+        <p><span class="zh">会用终端的话，一行命令下载并打开：</span><span class="en">Prefer the terminal? Download and open it in one line:</span></p>
+        <pre><code>curl -o ~/Downloads/Vanguard.dmg https://artifactory.release.ctripcorp.com/artifactory/trip-generic-prod-shanghai/vanguard/latest/Vanguard.dmg &amp;&amp; open ~/Downloads/Vanguard.dmg</code></pre>
       </div>
       <div class="step reveal" style="--d:.1s">
         <h3><span class="zh">放行一次</span><span class="en">Allow it once</span></h3>
@@ -1088,14 +1088,14 @@ footer a{color:var(--ink2)}
         <li><span class="zh">把 HUD 放到刘海上。HUD 内置在 Vanguard 里，随它启动和退出。</span><span class="en">puts the HUD on your notch. It's built in, and starts and quits with Vanguard.</span></li>
       </ul>
       </div>
-      <div class="pmedia"><video muted loop playsinline preload="none" poster="media/scan-poster.webp?v=2730416713" data-auto><source src="media/scan.mp4?v=2dcaaafbb3" type="video/mp4"></video></div>
+      <div class="pmedia"><video muted loop playsinline preload="none" poster="media/scan-poster.webp" data-auto><source src="media/scan.mp4" type="video/mp4"></video></div>
     </div>
     <div class="onboard">
       <h3 class="reveal"><span class="zh">装好之后，有人带你上手。</span><span class="en">After that, it shows you around.</span></h3>
       <div class="trio">
-        <figure class="shot reveal"><div class="frame"><img loading="lazy" src="media/tour.webp?v=4cf0f17a94" alt=""></div><figcaption><b><span class="zh">10 站导览</span><span class="en">A 10‑stop tour</span></b><span class="zh">聚光圈住真实界面，一站一句话。</span><span class="en">A spotlight on the real interface, one line per stop.</span></figcaption></figure>
-        <figure class="shot reveal" style="--d:.08s"><div class="frame"><img loading="lazy" src="media/checklist.webp?v=aa44440e5b" alt=""></div><figcaption><b><span class="zh">入门清单 40 项</span><span class="en">A 40‑item checklist</span></b><span class="zh">6 组 40 项，做完自动打勾，每项都能“带我看看”。</span><span class="en">Six groups, 40 items, ticked as you go, each with “Show me”.</span></figcaption></figure>
-        <figure class="shot reveal" style="--d:.16s"><div class="frame"><img loading="lazy" src="media/whats-new.webp?v=bda275f930" alt=""></div><figcaption><b><span class="zh">更新后只问一次</span><span class="en">Asked once after updates</span></b><span class="zh">更新后问一次要不要看新功能，不看就不再打扰。</span><span class="en">After an update it asks once whether to see what's new, then leaves you alone.</span></figcaption></figure>
+        <figure class="shot reveal"><div class="frame"><img loading="lazy" src="media/tour.webp" alt=""></div><figcaption><b><span class="zh">10 站导览</span><span class="en">A 10‑stop tour</span></b><span class="zh">聚光圈住真实界面，一站一句话。</span><span class="en">A spotlight on the real interface, one line per stop.</span></figcaption></figure>
+        <figure class="shot reveal" style="--d:.08s"><div class="frame"><img loading="lazy" src="media/checklist.webp" alt=""></div><figcaption><b><span class="zh">入门清单 40 项</span><span class="en">A 40‑item checklist</span></b><span class="zh">6 组 40 项，做完自动打勾，每项都能“带我看看”。</span><span class="en">Six groups, 40 items, ticked as you go, each with “Show me”.</span></figcaption></figure>
+        <figure class="shot reveal" style="--d:.16s"><div class="frame"><img loading="lazy" src="media/whats-new.webp" alt=""></div><figcaption><b><span class="zh">更新后只问一次</span><span class="en">Asked once after updates</span></b><span class="zh">更新后问一次要不要看新功能，不看就不再打扰。</span><span class="en">After an update it asks once whether to see what's new, then leaves you alone.</span></figcaption></figure>
       </div>
     </div>
     <div class="panelbox warn reveal">
@@ -1148,10 +1148,10 @@ footer a{color:var(--ink2)}
 
 <section class="final">
   <div class="wrap">
-    <img class="reveal" src="assets/icon.png?v=48508fb31b" alt="">
+    <img class="reveal" src="assets/icon.png" alt="">
     <h2 class="reveal"><span class="zh">派活、拍板、看全局。<br><span class="grad">其余的，交给小队。</span></span><span class="en">Assign. Decide. Oversee.<br><span class="grad">Leave the rest to the squad.</span></span></h2>
     <div class="actions reveal" style="--d:.15s">
-      <a class="btn primary" href="https://artifactory.release.ctripcorp.com/artifactory/trip-generic-prod-shanghai/vanguard/latest/Vanguard.dmg" download data-umami-event="下载 Vanguard" data-umami-event-position="final"><span class="zh">下载 Vanguard</span><span class="en">Download for Mac</span></a>
+      <a class="btn primary" href="https://trip.larkenterprise.com/file/Ui1Ub6dmYordYTxt8zyccyDknrb" target="_blank" rel="noopener" data-umami-event="下载 Vanguard" data-umami-event-position="final"><span class="zh">下载 Vanguard</span><span class="en">Download for Mac</span></a>
       <a class="btn ghost" href="https://applink.larkenterprise.com/client/chat/chatter/add_by_link?link_token=a9cr48e3-45d7-4aa1-ac37-b3a2992a83b2"><span class="zh">加入讨论群 ↗</span><span class="en">Join the group ↗</span></a>
     </div>
     <p class="alt-path reveal" style="--d:.2s"><span class="zh">只想要刘海上的 HUD？<a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">去 SI Future HUD ↗</a></span><span class="en">Just want the notch HUD? <a href="https://pages.release.ctripcorp.com/ckxu/si-future-hud/">Go to SI Future HUD ↗</a></span></p>
